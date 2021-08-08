@@ -21,7 +21,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const { handleClose, isClosing } = useClosingAnimation(show, onClose);
+  const { handleClose, isClosing } = useClosingAnimation(onClose);
   useDisableScroll(show);
   useOnClickOutside({ ref: contentRef, callback: handleClose, prevent: !closeOnOutside || !show });
 
