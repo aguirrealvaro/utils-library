@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useRef } from "react";
-import styled, { keyframes } from "styled-components";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import styled, { css, keyframes } from "styled-components";
 import { useDisableScroll, useOnClickOutside } from "../../hooks";
 import { ANIMATION_TIME, SIZES } from "./constants";
 import { SizeType } from "./types";
@@ -19,16 +19,37 @@ export const Modal: FunctionComponent<ModalProps> = ({
   closeOnOutside = true,
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<number>(0);
+
+  const [isClosing, setIsClosing] = useState<boolean>(false);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    timeoutRef.current = window.setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, ANIMATION_TIME);
+  };
 
   useDisableScroll(show);
-  useOnClickOutside({ ref: contentRef, callback: onClose, prevent: !closeOnOutside });
+  useOnClickOutside({ ref: contentRef, callback: handleClose, prevent: !closeOnOutside || !show });
+
+  useEffect(() => {
+    return () => window.clearTimeout(timeoutRef.current);
+  }, []);
+
+  useEffect(() => {
+    if (show) {
+      window.clearTimeout(timeoutRef.current);
+    }
+  }, [show]);
 
   if (!show) return null;
 
   return (
-    <Backdrop>
-      <Content size={size} ref={contentRef}>
-        <CloseButton onClick={onClose}>&times;</CloseButton>
+    <Backdrop isClosing={isClosing}>
+      <Content size={size} ref={contentRef} isClosing={isClosing}>
+        <CloseButton onClick={handleClose}>&times;</CloseButton>
         {children}
       </Content>
     </Backdrop>
@@ -40,12 +61,22 @@ const fadeIn = keyframes`
   to { opacity: 1 }
 `;
 
+const fadeOut = keyframes`
+  from { opacity: 1 }
+  to { opacity: 0 }
+`;
+
 const fadeInScale = keyframes`
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1);}
 `;
 
-const Backdrop = styled.div`
+const fadeOutScale = keyframes`
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.9);}
+`;
+
+const Backdrop = styled.div<{ isClosing: boolean }>`
   position: fixed;
   font-family: Arial;
   top: 0;
@@ -59,13 +90,18 @@ const Backdrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${({ theme }) => theme.breakpoint("lg")} {
+  ${({ isClosing }) =>
+    isClosing &&
+    css`
+      animation: ${fadeOut} ${ANIMATION_TIME}ms linear;
+    `};
+  ${({ theme }) => theme.breakpoint("md")} {
     animation: none;
     align-items: baseline;
   }
 `;
 
-const Content = styled.div<{ size: SizeType }>`
+const Content = styled.div<{ size: SizeType; isClosing: boolean }>`
   position: relative;
   width: ${({ size }) => SIZES[size]}px;
   min-height: 100px;
@@ -76,6 +112,11 @@ const Content = styled.div<{ size: SizeType }>`
   box-shadow: 0px 4px 23px rgba(0, 0, 0, 0.11);
   display: flex;
   flex-direction: column;
+  ${({ isClosing }) =>
+    isClosing &&
+    css`
+      animation: ${fadeOutScale} ${ANIMATION_TIME}ms linear;
+    `};
   ${({ theme }) => theme.breakpoint("md")} {
     border-radius: 0;
     width: 100%;
@@ -95,4 +136,5 @@ const CloseButton = styled.button`
   padding: 1rem;
   line-height: 15px;
   border-radius: 50%;
+  color: grey;
 `;
