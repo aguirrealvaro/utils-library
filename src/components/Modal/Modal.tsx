@@ -46,6 +46,7 @@ const fadeInScale = keyframes`
 `;
 
 const Backdrop = styled.div`
+  box-sizing: border-box;
   position: fixed;
   font-family: Arial;
   top: 0;
@@ -66,6 +67,7 @@ const Backdrop = styled.div`
 `;
 
 const Content = styled.div<{ size: SizeType }>`
+  box-sizing: border-box;
   position: relative;
   width: ${({ size }) => SIZES[size]}px;
   min-height: 100px;

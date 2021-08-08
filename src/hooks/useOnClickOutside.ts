@@ -1,4 +1,4 @@
-import { useEffect, MutableRefObject } from 'react';
+import { useEffect, MutableRefObject } from "react";
 
 type OptionsType = {
   ref: MutableRefObject<HTMLDivElement | HTMLButtonElement | null>;
@@ -15,12 +15,12 @@ export const useOnClickOutside = ({ ref, callback, prevent }: OptionsType): void
       callback();
     };
 
-    document.addEventListener('mousedown', listener);
-    document.addEventListener('touchstart', listener);
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listener);
 
     return () => {
-      document.removeEventListener('mousedown', listener);
-      document.removeEventListener('touchstart', listener);
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listener);
     };
   }, [ref, callback, prevent]);
 };

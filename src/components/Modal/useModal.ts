@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
 export const useModal = (): { show: boolean; onClose: () => void; onOpen: () => void } => {
   const [show, setShow] = useState<boolean>(false);
