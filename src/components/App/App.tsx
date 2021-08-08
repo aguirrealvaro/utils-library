@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { Modal, useModal } from "../Modal";
+import { Modal } from "@/components";
+import { useModal } from "@/hooks";
 
 export const App: FunctionComponent = () => {
   const { show, onClose, onOpen } = useModal();

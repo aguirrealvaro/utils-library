@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useRef } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useDisableScroll, useOnClickOutside } from "../../hooks";
 import { ANIMATION_TIME, SIZES } from "./constants";
+import { useClosingAnimation } from "./useClosingAnimation";
 import { SizeType } from "./types";
 
 export type ModalProps = {
@@ -19,30 +20,10 @@ export const Modal: FunctionComponent<ModalProps> = ({
   closeOnOutside = true,
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<number>(0);
 
-  const [isClosing, setIsClosing] = useState<boolean>(false);
-
-  const handleClose = () => {
-    setIsClosing(true);
-    timeoutRef.current = window.setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, ANIMATION_TIME);
-  };
-
+  const { handleClose, isClosing } = useClosingAnimation(show, onClose);
   useDisableScroll(show);
   useOnClickOutside({ ref: contentRef, callback: handleClose, prevent: !closeOnOutside || !show });
-
-  useEffect(() => {
-    return () => window.clearTimeout(timeoutRef.current);
-  }, []);
-
-  useEffect(() => {
-    if (show) {
-      window.clearTimeout(timeoutRef.current);
-    }
-  }, [show]);
 
   if (!show) return null;
 
