@@ -15,7 +15,7 @@ type IconProps = {
 export const Icon: FunctionComponent<IconProps> = ({
   icon,
   color = "#000",
-  size = "30px",
+  size = "20px",
   marginRight,
   marginLeft,
   className,

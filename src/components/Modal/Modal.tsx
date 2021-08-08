@@ -4,6 +4,7 @@ import { useDisableScroll, useOnClickOutside } from "../../hooks";
 import { ANIMATION_TIME, SIZES } from "./constants";
 import { useClosingAnimation } from "./useClosingAnimation";
 import { SizeType } from "./types";
+import { Icon } from "../Icon";
 
 export type ModalProps = {
   show: boolean;
@@ -30,7 +31,9 @@ export const Modal: FunctionComponent<ModalProps> = ({
   return (
     <Backdrop isClosing={isClosing}>
       <Content size={size} ref={contentRef} isClosing={isClosing}>
-        <CloseButton onClick={handleClose}>&times;</CloseButton>
+        <CloseButton onClick={handleClose}>
+          <Icon icon="close" color="grey" />
+        </CloseButton>
         {children}
       </Content>
     </Backdrop>
@@ -109,13 +112,13 @@ const Content = styled.div<{ size: SizeType; isClosing: boolean }>`
 `;
 
 const CloseButton = styled.button`
-  font-size: 30px;
   line-height: 0;
   position: absolute;
-  top: 0px;
-  right: 0px;
-  padding: 1rem;
-  line-height: 15px;
-  border-radius: 50%;
-  color: grey;
+  top: 12px;
+  right: 12px;
+  padding: 6px;
+  border-radius: 50px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 `;
