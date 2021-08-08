@@ -42,20 +42,15 @@ export const InputField: FunctionComponent<InputProps> = ({
   };
 
   return (
-    <Container>
+    <div>
       <InputContainer disabled={disabled} error={!!error}>
         <Input {...inputProps} />
         <Label htmlFor={inputId}>{placeholder}</Label>
       </InputContainer>
       {(helpText || error) && <Bottom error={!!error}>{error || helpText}</Bottom>}
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  box-sizing: border-box;
-  font-family: Arial;
-`;
 
 const InputContainer = styled.div<{
   disabled: boolean;
@@ -101,10 +96,6 @@ const Label = styled.label`
 `;
 
 const Input = styled.input<{ error: boolean }>`
-  font-size: 16px;
-  outline: none;
-  border: none;
-  background-color: transparent;
   height: 100%;
   top: 0;
   left: 0;
