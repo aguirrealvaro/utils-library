@@ -59,7 +59,7 @@ const Backdrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media (max-width: 768px) {
+  ${({ theme }) => theme.breakpoint("lg")} {
     animation: none;
     align-items: baseline;
   }
@@ -76,7 +76,7 @@ const Content = styled.div<{ size: SizeType }>`
   box-shadow: 0px 4px 23px rgba(0, 0, 0, 0.11);
   display: flex;
   flex-direction: column;
-  @media (max-width: 768px) {
+  ${({ theme }) => theme.breakpoint("md")} {
     border-radius: 0;
     width: 100%;
     margin: 0;
