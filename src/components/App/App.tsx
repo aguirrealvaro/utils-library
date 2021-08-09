@@ -10,7 +10,7 @@ export const App: FunctionComponent = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Icon icon="close" />
+      <Icon icon="burger" />
       <button onClick={onOpen}>Open Modal</button>
       <Modal show={show} onClose={onClose}>
         Modal
