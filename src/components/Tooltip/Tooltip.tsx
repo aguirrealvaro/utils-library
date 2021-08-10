@@ -9,13 +9,13 @@ type CoordinatesTypes = {
 
 type PlacementType = "top" | "right" | "bottom" | "left";
 
-type HoverCardProps = {
+type TooltipProps = {
   content: string | JSX.Element;
   placement?: PlacementType;
   className?: string;
 };
 
-export const HoverCard: FunctionComponent<HoverCardProps> = ({
+export const Tooltip: FunctionComponent<TooltipProps> = ({
   children,
   content,
   placement = "top",
@@ -25,14 +25,14 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
   const hoverRef = useRef<HTMLDivElement>(null);
 
   const [coords, setCoords] = useState<CoordinatesTypes>({ top: 0, left: 0 });
-  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
 
   const openPopover = () => {
-    if (!showPopover) setShowPopover(true);
+    if (!showTooltip) setShowTooltip(true);
   };
 
   const closePopover = () => {
-    if (showPopover) setShowPopover(false);
+    if (showTooltip) setShowTooltip(false);
   };
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
     };
 
     setCoords(positions[placement]);
-  }, [triggerRef, placement, showPopover]);
+  }, [triggerRef, placement, showTooltip]);
 
   return (
     <>
@@ -65,7 +65,7 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
       >
         {children}
       </Container>
-      {showPopover && (
+      {showTooltip && (
         <Portal>
           <Content coords={coords} ref={hoverRef}>
             {content}

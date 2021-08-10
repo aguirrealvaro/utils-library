@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { HoverCard } from "@/components/HoverCard";
+import { Tooltip } from "@/components/Tooltip";
 
 export const App: FunctionComponent = () => {
   return (
@@ -23,6 +23,6 @@ export const App: FunctionComponent = () => {
   );
 };
 
-const CustomHover = styled(HoverCard)`
+const CustomHover = styled(Tooltip)`
   margin-bottom: 5rem;
 `;
