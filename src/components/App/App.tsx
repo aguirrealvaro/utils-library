@@ -1,15 +1,28 @@
 import React, { FunctionComponent } from "react";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { HoverCard } from "@/components";
+import { HoverCard } from "@/components/HoverCard";
 
 export const App: FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
-      <HoverCard content="Holaaaaa">
+      <CustomHover content="Holaaaaa" placement="top">
         <span>asd</span>
-      </HoverCard>
+      </CustomHover>
+      <CustomHover content="Holaaaaa" placement="right">
+        <span>asd</span>
+      </CustomHover>
+      <CustomHover content="Holaaaaa" placement="bottom">
+        <span>asd</span>
+      </CustomHover>
+      <CustomHover content="Holaaaaa" placement="left">
+        <span>asd</span>
+      </CustomHover>
       <GlobalStyles />
     </ThemeProvider>
   );
 };
+
+const CustomHover = styled(HoverCard)`
+  margin-bottom: 5rem;
+`;

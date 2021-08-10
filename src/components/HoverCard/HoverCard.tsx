@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { Fragment, FunctionComponent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Portal } from "../Portal";
 
@@ -12,9 +12,15 @@ type PlacementType = "top" | "right" | "bottom" | "left";
 type HoverCardProps = {
   content: string | JSX.Element;
   placement?: PlacementType;
+  className?: string;
 };
 
-export const HoverCard: FunctionComponent<HoverCardProps> = ({ children, content, placement = "top" }) => {
+export const HoverCard: FunctionComponent<HoverCardProps> = ({
+  children,
+  content,
+  placement = "top",
+  className,
+}) => {
   const childrenRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +60,7 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({ children, content
   console.log({ coords });
 
   return (
-    <>
+    <div className={className}>
       <Children /* onMouseEnter={openPopover} onMouseLeave={closePopover} */ ref={childrenRef}>
         {children}
       </Children>
@@ -65,12 +71,12 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({ children, content
           </Content>
         </Portal>
       )}
-    </>
+    </div>
   );
 };
 
 const Children = styled.div`
-  align-self: baseline;
+  display: inline-block;
 `;
 
 const Content = styled.div<{ coords: CoordinatesTypes }>`
