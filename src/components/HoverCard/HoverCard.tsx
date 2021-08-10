@@ -42,8 +42,6 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
 
     if (!rect) return;
 
-    console.log({ rect });
-
     const gapX = 5;
     const gapY = 3;
 
@@ -55,7 +53,7 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
     };
 
     setCoords(positions[placement]);
-  }, [triggerRef, placement]);
+  }, [triggerRef, placement, showPopover]);
 
   return (
     <>
