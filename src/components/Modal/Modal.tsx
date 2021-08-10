@@ -91,7 +91,7 @@ const Content = styled.div<{ size: SizeType; isClosing: boolean }>`
   min-height: 100px;
   padding: 2rem;
   animation: ${fadeInScale} ${ANIMATION_TIME}ms ease-out;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 16px;
   box-shadow: 0px 4px 23px rgba(0, 0, 0, 0.11);
   display: flex;

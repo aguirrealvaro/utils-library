@@ -2,17 +2,17 @@ import { FunctionComponent, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 export const Portal: FunctionComponent = ({ children }) => {
-  const mount = document.querySelector("body");
-  const el = document.createElement("div");
+  const body = document.querySelector("body");
+  const element = document.createElement("div");
 
   useEffect(() => {
-    mount?.appendChild(el);
+    body?.appendChild(element);
     return () => {
-      mount?.removeChild(el);
+      body?.removeChild(element);
     };
-  }, [el, mount]);
+  }, [element, body]);
 
-  return createPortal(children, el);
+  return createPortal(children, element);
 };
 
 export default Portal;

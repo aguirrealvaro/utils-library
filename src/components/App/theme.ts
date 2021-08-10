@@ -12,6 +12,7 @@ const sizes: Record<Size, string> = {
 export const theme = {
   fontFamily: "Arial",
   breakpoint: (size: Size): string => `@media (max-width: ${sizes[size]})`,
+  colors: { black: "#212121", white: "#ffffff", blue: "#0072FF" },
 };
 
 export type ThemeType = typeof theme;

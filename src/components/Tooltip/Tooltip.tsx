@@ -82,12 +82,9 @@ const Content = styled.div<{ coords: CoordinatesType }>`
   top: 0;
   left: 0;
   padding: 0.7rem;
-  background-color: #707070;
-  color: #fff;
+  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
   font-size: 0.8rem;
-  max-width: 150px;
-  word-wrap: break-word;
-  white-space: normal;
   transform: ${({ coords }) => `translate(${coords.top}px, ${coords.left}px)`};
 `;
