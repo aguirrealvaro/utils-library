@@ -5,6 +5,7 @@ import { ANIMATION_TIME, SIZES } from "./constants";
 import { useClosingAnimation } from "./useClosingAnimation";
 import { SizeType } from "./types";
 import { Icon } from "../Icon";
+import { Portal } from "../Portal";
 
 export type ModalProps = {
   show: boolean;
@@ -29,14 +30,16 @@ export const Modal: FunctionComponent<ModalProps> = ({
   if (!show) return null;
 
   return (
-    <Backdrop isClosing={isClosing}>
-      <Content size={size} ref={contentRef} isClosing={isClosing}>
-        <CloseButton onClick={handleClose}>
-          <Icon icon="close" color="grey" />
-        </CloseButton>
-        {children}
-      </Content>
-    </Backdrop>
+    <Portal>
+      <Backdrop isClosing={isClosing}>
+        <Content size={size} ref={contentRef} isClosing={isClosing}>
+          <CloseButton onClick={handleClose}>
+            <Icon icon="close" color="grey" />
+          </CloseButton>
+          {children}
+        </Content>
+      </Backdrop>
+    </Portal>
   );
 };
 
@@ -118,6 +121,7 @@ const CloseButton = styled.button`
   right: 12px;
   padding: 6px;
   border-radius: 50px;
+  transition: background-color ${ANIMATION_TIME}ms linear;
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
