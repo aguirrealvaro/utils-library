@@ -16,16 +16,17 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
         }
     }
 
-    #root {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
     body {
         font-family: ${(props) => props.theme.fontFamily};
         font-size: 16px;
         background-color: #FBFBFB;
+    }
+
+    #root {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 10rem
     }
 
     img {
