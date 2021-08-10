@@ -26,7 +26,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
         height: 100vh;
         display: flex;
         flex-direction: column;
-        padding: 10rem
+        padding: 8rem 12rem;
     }
 
     img {

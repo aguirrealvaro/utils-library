@@ -25,21 +25,20 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   const [coords, setCoords] = useState<CoordinatesTypes>({ top: 0, left: 0 });
-  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [showPopover, setShowPopover] = useState<boolean>(true);
 
-  const openPopover = () => {
+  /* const openPopover = () => {
     if (!showPopover) setShowPopover(true);
   };
+  
   const closePopover = () => {
     if (showPopover) setShowPopover(false);
-  };
+  }; */
 
   useEffect(() => {
     const rect = childrenRef.current?.getBoundingClientRect();
 
     if (!rect) return;
-
-    console.log({ rect });
 
     const gapX = 5;
     const gapY = 3;
@@ -47,17 +46,20 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
     const contentHeight = contentRef.current?.offsetHeight || 0;
 
     const positions: Record<PlacementType, CoordinatesTypes> = {
-      top: { top: rect.y - rect.width, left: rect.x - contentHeight - gapY },
-      right: { top: rect.y + rect.width + gapX, left: rect.x - rect.height / 2 },
-      bottom: { top: rect.y - rect.width, left: rect.x + rect.height + gapY },
-      left: { top: rect.y - contentWidth - gapX, left: rect.x - rect.height / 2 },
+      top: { top: rect.x - rect.width, left: rect.y - contentHeight - gapY },
+      right: { top: rect.x + rect.width + gapX, left: rect.y - rect.height / 2 },
+      bottom: { top: rect.x - rect.width, left: rect.y + rect.height + gapY },
+      left: { top: rect.x - contentWidth - gapX, left: rect.y - rect.height / 2 },
     };
 
     setCoords(positions[placement]);
   }, [childrenRef, placement]);
 
   return (
-    <Container className={className} onMouseEnter={openPopover} onMouseLeave={closePopover} ref={childrenRef}>
+    <Container
+      className={className}
+      /* onMouseEnter={openPopover} onMouseLeave={closePopover} */ ref={childrenRef}
+    >
       {children}
       {showPopover && (
         <Portal>
