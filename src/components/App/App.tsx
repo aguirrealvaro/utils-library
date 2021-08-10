@@ -6,23 +6,23 @@ import { HoverCard } from "@/components/HoverCard";
 export const App: FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
-      <CustomHover content="Holaaaaa" placement="top">
+      <CustomHover content="asdasd" placement="top">
         <span>asd</span>
       </CustomHover>
-      <CustomHover content="Holaaaaa" placement="right">
+      {/* <CustomHover content="asdasd" placement="right">
         <span>asd</span>
       </CustomHover>
-      <CustomHover content="Holaaaaa" placement="bottom">
+      <CustomHover content="asdasd" placement="bottom">
         <span>asd</span>
       </CustomHover>
-      <CustomHover content="Holaaaaa" placement="left">
+      <CustomHover content="asdasd" placement="left">
         <span>asd</span>
-      </CustomHover>
+      </CustomHover> */}
       <GlobalStyles />
     </ThemeProvider>
   );
 };
 
 const CustomHover = styled(HoverCard)`
-  margin-bottom: 5rem;
+  //margin-bottom: 5rem;
 `;

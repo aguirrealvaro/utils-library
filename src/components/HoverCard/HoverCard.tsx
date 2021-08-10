@@ -1,4 +1,4 @@
-import React, { Fragment, FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Portal } from "../Portal";
 
@@ -25,15 +25,21 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   const [coords, setCoords] = useState<CoordinatesTypes>({ top: 0, left: 0 });
-  const [showPopover, setShowPopover] = useState<boolean>(true);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
 
-  const openPopover = () => setShowPopover(true);
-  const closePopover = () => setShowPopover(false);
+  const openPopover = () => {
+    if (!showPopover) setShowPopover(true);
+  };
+  const closePopover = () => {
+    if (showPopover) setShowPopover(false);
+  };
 
   useEffect(() => {
     const rect = childrenRef.current?.getBoundingClientRect();
 
     if (!rect) return;
+
+    console.log({ rect });
 
     const gapX = 5;
     const gapY = 3;
@@ -48,22 +54,11 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
     };
 
     setCoords(positions[placement]);
-
-    /* setCoords({
-      top: rect.y + window.scrollY,
-      left: rect.x + rect.width / 2,
-    }); */
-
-    console.log({ rect });
   }, [childrenRef, placement]);
 
-  console.log({ coords });
-
   return (
-    <div className={className}>
-      <Children /* onMouseEnter={openPopover} onMouseLeave={closePopover} */ ref={childrenRef}>
-        {children}
-      </Children>
+    <Container className={className} onMouseEnter={openPopover} onMouseLeave={closePopover} ref={childrenRef}>
+      {children}
       {showPopover && (
         <Portal>
           <Content coords={coords} ref={contentRef}>
@@ -71,11 +66,12 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
           </Content>
         </Portal>
       )}
-    </div>
+    </Container>
   );
 };
 
-const Children = styled.div`
+const Container = styled.div`
+  align-self: baseline;
   display: inline-block;
 `;
 
