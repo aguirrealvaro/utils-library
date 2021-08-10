@@ -14,7 +14,7 @@ type HoverCardProps = {
   placement?: PlacementType;
 };
 
-export const HoverCard: FunctionComponent<HoverCardProps> = ({ children, content, placement = "right" }) => {
+export const HoverCard: FunctionComponent<HoverCardProps> = ({ children, content, placement = "top" }) => {
   const childrenRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -29,14 +29,16 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({ children, content
 
     if (!rect) return;
 
-    const gap = 5;
+    const gapX = 5;
+    const gapY = 3;
     const contentWidth = contentRef.current?.offsetWidth || 0;
+    const contentHeight = contentRef.current?.offsetHeight || 0;
 
     const positions: Record<PlacementType, CoordinatesTypes> = {
-      top: { top: 0, left: 0 },
-      right: { top: rect.y + rect.width + gap, left: rect.x - rect.height / 2 },
-      bottom: { top: 0, left: 0 },
-      left: { top: rect.y - contentWidth - gap, left: rect.x - rect.height / 2 },
+      top: { top: rect.y - rect.width, left: rect.x - contentHeight - gapY },
+      right: { top: rect.y + rect.width + gapX, left: rect.x - rect.height / 2 },
+      bottom: { top: rect.y - rect.width, left: rect.x + rect.height + gapY },
+      left: { top: rect.y - contentWidth - gapX, left: rect.x - rect.height / 2 },
     };
 
     setCoords(positions[placement]);
