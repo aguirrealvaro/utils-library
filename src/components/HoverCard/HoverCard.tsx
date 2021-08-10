@@ -60,7 +60,7 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
       <Container
         className={className}
         onMouseEnter={openPopover}
-        //onMouseLeave={closePopover}
+        onMouseLeave={closePopover}
         ref={triggerRef}
       >
         {children}
