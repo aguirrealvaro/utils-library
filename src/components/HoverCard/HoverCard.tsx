@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useLayoutEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Portal } from "../Portal";
 
@@ -24,7 +24,7 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({ children, content
   const openPopover = () => setShowPopover(true);
   const closePopover = () => setShowPopover(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const rect = childrenRef.current?.getBoundingClientRect();
 
     if (!rect) return;

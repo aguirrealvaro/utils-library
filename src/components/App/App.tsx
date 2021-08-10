@@ -7,7 +7,7 @@ export const App: FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
       <HoverCard content="Holaaaaa">
-        <span>texto</span>
+        <span>asd</span>
       </HoverCard>
       <GlobalStyles />
     </ThemeProvider>
