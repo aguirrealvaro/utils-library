@@ -21,54 +21,60 @@ export const HoverCard: FunctionComponent<HoverCardProps> = ({
   placement = "top",
   className,
 }) => {
-  const childrenRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const hoverRef = useRef<HTMLDivElement>(null);
 
   const [coords, setCoords] = useState<CoordinatesTypes>({ top: 0, left: 0 });
-  const [showPopover, setShowPopover] = useState<boolean>(true);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
 
-  /* const openPopover = () => {
+  const openPopover = () => {
     if (!showPopover) setShowPopover(true);
   };
-  
+
   const closePopover = () => {
     if (showPopover) setShowPopover(false);
-  }; */
+  };
 
   useEffect(() => {
-    const rect = childrenRef.current?.getBoundingClientRect();
+    const rect = triggerRef.current?.getBoundingClientRect();
+    const hoverWidth = hoverRef.current?.offsetWidth || 0;
+    const hoverHeight = hoverRef.current?.offsetHeight || 0;
 
     if (!rect) return;
 
+    console.log({ rect });
+
     const gapX = 5;
     const gapY = 3;
-    const contentWidth = contentRef.current?.offsetWidth || 0;
-    const contentHeight = contentRef.current?.offsetHeight || 0;
 
     const positions: Record<PlacementType, CoordinatesTypes> = {
-      top: { top: rect.x - rect.width, left: rect.y - contentHeight - gapY },
+      top: { top: rect.x - rect.width, left: rect.y - hoverHeight - gapY },
       right: { top: rect.x + rect.width + gapX, left: rect.y - rect.height / 2 },
       bottom: { top: rect.x - rect.width, left: rect.y + rect.height + gapY },
-      left: { top: rect.x - contentWidth - gapX, left: rect.y - rect.height / 2 },
+      left: { top: rect.x - hoverWidth - gapX, left: rect.y - rect.height / 2 },
     };
 
     setCoords(positions[placement]);
-  }, [childrenRef, placement]);
+  }, [triggerRef, placement]);
 
   return (
-    <Container
-      className={className}
-      /* onMouseEnter={openPopover} onMouseLeave={closePopover} */ ref={childrenRef}
-    >
-      {children}
+    <>
+      <Container
+        className={className}
+        onMouseEnter={openPopover}
+        //onMouseLeave={closePopover}
+        ref={triggerRef}
+      >
+        {children}
+      </Container>
       {showPopover && (
         <Portal>
-          <Content coords={coords} ref={contentRef}>
+          <Content coords={coords} ref={hoverRef}>
             {content}
           </Content>
         </Portal>
       )}
-    </Container>
+    </>
   );
 };
 

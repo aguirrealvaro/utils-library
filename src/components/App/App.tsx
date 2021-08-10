@@ -9,15 +9,6 @@ export const App: FunctionComponent = () => {
       <CustomHover content="Hoveeeeeeeeeeeer!" placement="top">
         <span>trigger</span>
       </CustomHover>
-      <CustomHover content="Hoveeeeeeeeeeeer!" placement="right">
-        <span>trigger</span>
-      </CustomHover>
-      <CustomHover content="Hoveeeeeeeeeeeer!" placement="bottom">
-        <span>trigger</span>
-      </CustomHover>
-      <CustomHover content="Hoveeeeeeeeeeeer!" placement="left">
-        <span>trigger</span>
-      </CustomHover>
       <GlobalStyles />
     </ThemeProvider>
   );
