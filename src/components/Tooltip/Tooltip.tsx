@@ -46,10 +46,10 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
     const gapY = 3;
 
     const positions: Record<PlacementType, CoordinatesTypes> = {
-      top: { top: rect.x - rect.width, left: rect.y - hoverHeight - gapY },
-      right: { top: rect.x + rect.width + gapX, left: rect.y - rect.height / 2 },
-      bottom: { top: rect.x - rect.width, left: rect.y + rect.height + gapY },
-      left: { top: rect.x - hoverWidth - gapX, left: rect.y - rect.height / 2 },
+      top: { top: rect.x - rect.width, left: rect.y - hoverHeight - gapY + window.scrollY },
+      right: { top: rect.x + rect.width + gapX, left: rect.y - rect.height / 2 + window.scrollY },
+      bottom: { top: rect.x - rect.width, left: rect.y + rect.height + gapY + window.scrollY },
+      left: { top: rect.x - hoverWidth - gapX, left: rect.y - rect.height / 2 + window.scrollY },
     };
 
     setCoords(positions[placement]);
