@@ -6,8 +6,8 @@ import { HoverCard } from "@/components";
 export const App: FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
-      <HoverCard content="Hola">
-        <button>boton</button>
+      <HoverCard content="Holaaaaa">
+        <span>texto</span>
       </HoverCard>
       <GlobalStyles />
     </ThemeProvider>
