@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Portal } from "..";
+import { ANIMATION_TIME } from "./constants";
 import { PlacementType, CoordinatesType } from "./types";
 
 type TooltipProps = {
@@ -77,14 +78,19 @@ const Container = styled.div`
   display: inline-block;
 `;
 
+const fadeInScale = keyframes`
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1);}
+`;
+
 const Content = styled.div<{ coords: CoordinatesType }>`
   position: absolute;
-  top: 0;
-  left: 0;
+  top: ${({ coords }) => coords.left}px;
+  left: ${({ coords }) => coords.top}px;
   padding: 0.7rem;
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
   font-size: 0.8rem;
-  transform: ${({ coords }) => `translate(${coords.top}px, ${coords.left}px)`};
+  animation: ${fadeInScale} ${ANIMATION_TIME}ms ease-out;
 `;
