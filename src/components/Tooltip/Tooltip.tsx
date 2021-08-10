@@ -1,13 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Portal } from "../Portal";
-
-type CoordinatesTypes = {
-  top: number;
-  left: number;
-};
-
-type PlacementType = "top" | "right" | "bottom" | "left";
+import { Portal } from "..";
+import { PlacementType, CoordinatesType } from "./types";
 
 type TooltipProps = {
   content: string | JSX.Element;
@@ -24,7 +18,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
   const triggerRef = useRef<HTMLDivElement>(null);
   const hoverRef = useRef<HTMLDivElement>(null);
 
-  const [coords, setCoords] = useState<CoordinatesTypes>({ top: 0, left: 0 });
+  const [coords, setCoords] = useState<CoordinatesType>({ top: 0, left: 0 });
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
 
   const openPopover = () => {
@@ -36,20 +30,22 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
   };
 
   useEffect(() => {
-    const rect = triggerRef.current?.getBoundingClientRect();
+    const bounding = triggerRef.current?.getBoundingClientRect();
     const hoverWidth = hoverRef.current?.offsetWidth || 0;
     const hoverHeight = hoverRef.current?.offsetHeight || 0;
 
-    if (!rect) return;
+    if (!bounding) return;
 
     const gapX = 5;
     const gapY = 3;
 
-    const positions: Record<PlacementType, CoordinatesTypes> = {
-      top: { top: rect.x - rect.width, left: rect.y - hoverHeight - gapY + window.scrollY },
-      right: { top: rect.x + rect.width + gapX, left: rect.y - rect.height / 2 + window.scrollY },
-      bottom: { top: rect.x - rect.width, left: rect.y + rect.height + gapY + window.scrollY },
-      left: { top: rect.x - hoverWidth - gapX, left: rect.y - rect.height / 2 + window.scrollY },
+    const { x, y, width, height } = bounding;
+
+    const positions: Record<PlacementType, CoordinatesType> = {
+      top: { top: x - width, left: y - hoverHeight - gapY + window.scrollY },
+      right: { top: x + width + gapX, left: y - height / 2 + window.scrollY },
+      bottom: { top: x - width, left: y + height + gapY + window.scrollY },
+      left: { top: x - hoverWidth - gapX, left: y - height / 2 + window.scrollY },
     };
 
     setCoords(positions[placement]);
@@ -81,7 +77,7 @@ const Container = styled.div`
   display: inline-block;
 `;
 
-const Content = styled.div<{ coords: CoordinatesTypes }>`
+const Content = styled.div<{ coords: CoordinatesType }>`
   position: absolute;
   top: 0;
   left: 0;
