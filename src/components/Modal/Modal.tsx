@@ -37,16 +37,14 @@ export const Modal: FunctionComponent<ModalProps> = ({
   if (!delayed) return null;
 
   return (
-    <Portal>
-      <Backdrop onAnimationEnd={onAnimationEnd} show={show}>
-        <Content size={size} ref={contentRef} show={show}>
-          <CloseButton onClick={onClose}>
-            <Icon icon="close" color="grey" />
-          </CloseButton>
-          {children}
-        </Content>
-      </Backdrop>
-    </Portal>
+    <Backdrop onAnimationEnd={onAnimationEnd} show={show}>
+      <Content size={size} ref={contentRef} show={show}>
+        <CloseButton onClick={onClose}>
+          <Icon icon="close" color="grey" />
+        </CloseButton>
+        {children}
+      </Content>
+    </Backdrop>
   );
 };
 
