@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type PhasesType = "unmounted" | "mounting" | "mounted" | "unmounting";
 
@@ -15,6 +15,7 @@ export const useDelayUnmount = (
   cancelEventsInAnimations = true
 ): UseDelayUnmountReturnType => {
   const [phase, setPhase] = useState<PhasesType>("unmounted");
+  const timeoutId = useRef<number>(0);
 
   const onOpen = useCallback(() => {
     if (cancelEventsInAnimations && phase === "unmounting") return;
@@ -32,16 +33,14 @@ export const useDelayUnmount = (
   };
 
   useEffect(() => {
-    let timeoutId: number;
-
     if (phase === "unmounting") {
-      timeoutId = window.setTimeout(() => setPhase("unmounted"), timeout);
+      timeoutId.current = window.setTimeout(() => setPhase("unmounted"), timeout);
     } else if (phase === "mounting") {
-      timeoutId = window.setTimeout(() => setPhase("mounted"), timeout);
+      timeoutId.current = window.setTimeout(() => setPhase("mounted"), timeout);
     }
 
     return () => {
-      clearTimeout(timeoutId);
+      clearTimeout(timeoutId.current);
     };
   }, [phase, timeout]);
 
