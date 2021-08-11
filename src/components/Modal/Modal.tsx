@@ -1,10 +1,11 @@
-import React, { FunctionComponent, useRef, useState, useEffect } from "react";
+import React, { FunctionComponent, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useDisableScroll, useOnClickOutside } from "@/hooks";
 import { ANIMATION_TIME, SIZES } from "./constants";
 import { SizeType } from "./types";
-import { Icon, Portal } from "@/components";
+import { Icon } from "@/components";
 import { useAnimationEnd } from "@/hooks/useAnimationEnd";
+import { createPortal } from "react-dom";
 
 export type ModalProps = {
   show: boolean;
@@ -29,7 +30,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
 
   if (!render) return null;
 
-  return (
+  const Component = (
     <Backdrop onAnimationEnd={onAnimationEnd} show={show}>
       <Content size={size} ref={contentRef} show={show}>
         <CloseButton onClick={onClose}>
@@ -39,6 +40,8 @@ export const Modal: FunctionComponent<ModalProps> = ({
       </Content>
     </Backdrop>
   );
+
+  return createPortal(Component, document.querySelector("body")!);
 };
 
 const fadeIn = keyframes`
