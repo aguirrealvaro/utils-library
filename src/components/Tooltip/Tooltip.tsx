@@ -58,6 +58,8 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
     setCoords(positions[placement]);
   }, [triggerRef, placement, show]);
 
+  const isStringContent = typeof content === "string";
+
   return (
     <>
       <Container className={className} {...hoverProps} ref={triggerRef}>
@@ -65,7 +67,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
       </Container>
       {show &&
         createPortal(
-          <Content coords={coords} ref={hoverRef} fadeOut={closeAnimation}>
+          <Content coords={coords} ref={hoverRef} fadeOut={closeAnimation} isStringContent={isStringContent}>
             {content}
           </Content>,
           document.querySelector("body")!
@@ -84,7 +86,7 @@ const fadeInScale = keyframes`
   to { opacity: 1; transform: scale(1);}
 `;
 
-const Content = styled.div<{ coords: CoordinatesType; fadeOut: boolean }>`
+const Content = styled.div<{ coords: CoordinatesType; fadeOut: boolean; isStringContent: boolean }>`
   position: absolute;
   top: ${({ coords }) => coords.left}px;
   left: ${({ coords }) => coords.top}px;
@@ -100,5 +102,12 @@ const Content = styled.div<{ coords: CoordinatesType; fadeOut: boolean }>`
       opacity: 0;
       transform: scale(0.9);
       transition: all ${ANIMATION_TIME}ms ease-out;
+    `}
+  ${({ isStringContent }) =>
+    isStringContent &&
+    css`
+      max-width: 150px;
+      word-wrap: break-word;
+      white-space: normal;
     `}
 `;
