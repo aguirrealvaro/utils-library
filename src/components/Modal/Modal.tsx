@@ -4,6 +4,7 @@ import { useDisableScroll, useOnClickOutside } from "@/hooks";
 import { ANIMATION_TIME, SIZES } from "./constants";
 import { SizeType } from "./types";
 import { Icon, Portal } from "@/components";
+import { useAnimationEnd } from "@/hooks/useAnimationEnd";
 
 export type ModalProps = {
   show: boolean;
@@ -19,22 +20,14 @@ export const Modal: FunctionComponent<ModalProps> = ({
   size = "md",
   closeOnOutside = true,
 }) => {
-  const [delayed, setDelayed] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (show) setDelayed(true);
-  }, [show]);
-
-  const onAnimationEnd = () => {
-    if (!show) setDelayed(false);
-  };
+  const { render, onAnimationEnd } = useAnimationEnd(show);
 
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useDisableScroll(delayed);
-  useOnClickOutside({ ref: contentRef, callback: onClose, prevent: !closeOnOutside || !delayed });
+  useDisableScroll(render);
+  useOnClickOutside({ ref: contentRef, callback: onClose, prevent: !closeOnOutside || !render });
 
-  if (!delayed) return null;
+  if (!render) return null;
 
   return (
     <Backdrop onAnimationEnd={onAnimationEnd} show={show}>
