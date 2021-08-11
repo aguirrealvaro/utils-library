@@ -24,7 +24,10 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
 
   const [coords, setCoords] = useState<CoordinatesType>({ top: 0, left: 0 });
 
-  const { show, onOpen, onClose, onToggle, closeAnimation } = useDelayUnmount(ANIMATION_TIME, false);
+  const { show, onOpen, onClose, onToggle, closeAnimation } = useDelayUnmount({
+    timeout: ANIMATION_TIME,
+    cancelEventsInAnimations: false,
+  });
 
   const hoverProps = {
     ...(trigger === "hover" ? { onMouseEnter: onOpen, onMouseLeave: onClose } : { onClick: onToggle }),

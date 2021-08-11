@@ -7,7 +7,6 @@ export const App: FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
       <Tooltip content="Contenido hover">tooltip</Tooltip>
-      <div></div>
       <GlobalStyles />
     </ThemeProvider>
   );
