@@ -14,7 +14,7 @@ type TooltipProps = {
 export const Tooltip: FunctionComponent<TooltipProps> = ({
   children,
   content,
-  placement = "bottom",
+  placement = "right",
   trigger = "hover",
   className,
 }) => {
@@ -49,9 +49,9 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
 
     const positions: Record<PlacementType, CoordinatesType> = {
       top: { top: verticalTop, left: y - hoverHeight - gapY + window.scrollY },
-      right: { top: x + width + gapX, left: horizontalLeft },
+      right: { top: x + width + gapX + window.scrollX, left: horizontalLeft },
       bottom: { top: verticalTop, left: y + height + gapY + window.scrollY },
-      left: { top: x - hoverWidth - gapX, left: horizontalLeft },
+      left: { top: x - hoverWidth - gapX + window.scrollX, left: horizontalLeft },
     };
 
     setCoords(positions[placement]);
