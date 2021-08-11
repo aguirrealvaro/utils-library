@@ -1,5 +1,6 @@
+import { useDelayUnmount } from "@/hooks";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { Portal } from "..";
 import { ANIMATION_TIME } from "./constants";
 import { PlacementType, CoordinatesType, TriggerType } from "./types";
@@ -22,22 +23,11 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
   const hoverRef = useRef<HTMLDivElement>(null);
 
   const [coords, setCoords] = useState<CoordinatesType>({ top: 0, left: 0 });
-  const [showTooltip, setShowTooltip] = useState<boolean>(false);
 
-  const openTooltip = () => {
-    if (!showTooltip) setShowTooltip(true);
-  };
-
-  const closeTooltip = () => {
-    if (showTooltip) setShowTooltip(false);
-  };
-
-  const togglePopover = () => setShowTooltip(!showTooltip);
+  const { show, onOpen, onClose, onToggle, closeAnimation } = useDelayUnmount(ANIMATION_TIME, false);
 
   const hoverProps = {
-    ...(trigger === "hover"
-      ? { onMouseEnter: openTooltip, onMouseLeave: closeTooltip }
-      : { onClick: togglePopover }),
+    ...(trigger === "hover" ? { onMouseEnter: onOpen, onMouseLeave: onClose } : { onClick: onToggle }),
   };
 
   useEffect(() => {
@@ -63,19 +53,17 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
     };
 
     setCoords(positions[placement]);
-  }, [triggerRef, placement, showTooltip]);
+  }, [triggerRef, placement, show]);
 
   return (
     <>
       <Container className={className} {...hoverProps} ref={triggerRef}>
         {children}
       </Container>
-      {showTooltip && (
-        <Portal>
-          <Content coords={coords} ref={hoverRef}>
-            {content}
-          </Content>
-        </Portal>
+      {show && (
+        <Content coords={coords} ref={hoverRef} fadeOut={closeAnimation}>
+          {content}
+        </Content>
       )}
     </>
   );
@@ -91,7 +79,7 @@ const fadeInScale = keyframes`
   to { opacity: 1; transform: scale(1);}
 `;
 
-const Content = styled.div<{ coords: CoordinatesType }>`
+const Content = styled.div<{ coords: CoordinatesType; fadeOut: boolean }>`
   position: absolute;
   top: ${({ coords }) => coords.left}px;
   left: ${({ coords }) => coords.top}px;
@@ -101,4 +89,11 @@ const Content = styled.div<{ coords: CoordinatesType }>`
   border-radius: 4px;
   font-size: 0.8rem;
   animation: ${fadeInScale} ${ANIMATION_TIME}ms ease-out;
+  ${({ fadeOut }) =>
+    fadeOut &&
+    css`
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all ${ANIMATION_TIME}ms ease-out;
+    `}
 `;

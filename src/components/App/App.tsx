@@ -1,18 +1,12 @@
 import React, { FunctionComponent } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { Modal } from "@/components";
-import { useDelayUnmount } from "@/hooks";
+import { Tooltip } from "@/components";
 
 export const App: FunctionComponent = () => {
-  const { show, onClose, onOpen, closeAnimation } = useDelayUnmount();
-
   return (
     <ThemeProvider theme={theme}>
-      <button onClick={onOpen}>Open</button>
-      <Modal show={show} onClose={onClose} closeAnimation={closeAnimation}>
-        Modal
-      </Modal>
+      <Tooltip content="Contenido hover">tooltip</Tooltip>
       <div></div>
       <GlobalStyles />
     </ThemeProvider>
