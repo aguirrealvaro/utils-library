@@ -1,7 +1,7 @@
 import { useDelayUnmount } from "@/hooks";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
-import { Portal } from "..";
 import { ANIMATION_TIME } from "./constants";
 import { PlacementType, CoordinatesType, TriggerType } from "./types";
 
@@ -26,7 +26,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
 
   const { show, onOpen, onClose, onToggle, closeAnimation } = useDelayUnmount({
     timeout: ANIMATION_TIME,
-    cancelEventsInAnimations: false,
+    cancelEventsOnAnimations: false,
   });
 
   const hoverProps = {
@@ -63,11 +63,13 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
       <Container className={className} {...hoverProps} ref={triggerRef}>
         {children}
       </Container>
-      {show && (
-        <Content coords={coords} ref={hoverRef} fadeOut={closeAnimation}>
-          {content}
-        </Content>
-      )}
+      {show &&
+        createPortal(
+          <Content coords={coords} ref={hoverRef} fadeOut={closeAnimation}>
+            {content}
+          </Content>,
+          document.querySelector("body")!
+        )}
     </>
   );
 };
