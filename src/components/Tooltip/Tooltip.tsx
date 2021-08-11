@@ -2,25 +2,27 @@ import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Portal } from "..";
 import { ANIMATION_TIME } from "./constants";
-import { PlacementType, CoordinatesType } from "./types";
+import { PlacementType, CoordinatesType, TriggerType } from "./types";
 
 type TooltipProps = {
   content: string | JSX.Element;
   placement?: PlacementType;
+  trigger?: TriggerType;
   className?: string;
 };
 
 export const Tooltip: FunctionComponent<TooltipProps> = ({
   children,
   content,
-  placement = "top",
+  placement = "bottom",
+  trigger = "hover",
   className,
 }) => {
   const triggerRef = useRef<HTMLDivElement>(null);
   const hoverRef = useRef<HTMLDivElement>(null);
 
   const [coords, setCoords] = useState<CoordinatesType>({ top: 0, left: 0 });
-  const [showTooltip, setShowTooltip] = useState<boolean>(false);
+  const [showTooltip, setShowTooltip] = useState<boolean>(true);
 
   const openPopover = () => {
     if (!showTooltip) setShowTooltip(true);
@@ -37,16 +39,19 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
 
     if (!bounding) return;
 
-    const gapX = 5;
-    const gapY = 3;
+    const gapX = 7;
+    const gapY = 5;
 
     const { x, y, width, height } = bounding;
 
+    const verticalTop = x + width / 2 - hoverWidth / 2;
+    const horizontalLeft = y - height / 2 + window.scrollY;
+
     const positions: Record<PlacementType, CoordinatesType> = {
-      top: { top: x - width, left: y - hoverHeight - gapY + window.scrollY },
-      right: { top: x + width + gapX, left: y - height / 2 + window.scrollY },
-      bottom: { top: x - width, left: y + height + gapY + window.scrollY },
-      left: { top: x - hoverWidth - gapX, left: y - height / 2 + window.scrollY },
+      top: { top: verticalTop, left: y - hoverHeight - gapY + window.scrollY },
+      right: { top: x + width + gapX, left: horizontalLeft },
+      bottom: { top: verticalTop, left: y + height + gapY + window.scrollY },
+      left: { top: x - hoverWidth - gapX, left: horizontalLeft },
     };
 
     setCoords(positions[placement]);
