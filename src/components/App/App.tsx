@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { Tooltip } from "@/components";
+import { ExclamationTooltip } from "@/components";
 
 export const App: FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Tooltip content="Contenido hover">tooltip</Tooltip>
+      <ExclamationTooltip content="contenido" placement="left" />
       <GlobalStyles />
     </ThemeProvider>
   );

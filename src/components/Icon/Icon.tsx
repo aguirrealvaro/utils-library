@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
 import { paths, viewBox } from ".";
+import { theme } from "../App";
 
-export type IconType = "burger" | "close";
+export type IconType = "burger" | "close" | "exclamation";
 
 type IconProps = {
   icon: IconType;
@@ -15,7 +16,7 @@ type IconProps = {
 
 export const Icon: FunctionComponent<IconProps> = ({
   icon,
-  color = "#000",
+  color = theme.colors.black,
   size = "20px",
   marginRight,
   marginLeft,

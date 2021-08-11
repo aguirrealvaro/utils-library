@@ -1,11 +1,11 @@
 import { useDelayUnmount } from "@/hooks";
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
 import { ANIMATION_TIME } from "./constants";
 import { PlacementType, CoordinatesType, TriggerType } from "./types";
 
-type TooltipProps = {
+export type TooltipProps = {
   content: string | JSX.Element;
   placement?: PlacementType;
   trigger?: TriggerType;
@@ -15,7 +15,7 @@ type TooltipProps = {
 export const Tooltip: FunctionComponent<TooltipProps> = ({
   children,
   content,
-  placement = "right",
+  placement = "bottom",
   trigger = "hover",
   className,
 }) => {
@@ -33,7 +33,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
     ...(trigger === "hover" ? { onMouseEnter: onOpen, onMouseLeave: onClose } : { onClick: onToggle }),
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const bounding = triggerRef.current?.getBoundingClientRect();
     const hoverWidth = hoverRef.current?.offsetWidth || 0;
     const hoverHeight = hoverRef.current?.offsetHeight || 0;
