@@ -22,14 +22,22 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
   const hoverRef = useRef<HTMLDivElement>(null);
 
   const [coords, setCoords] = useState<CoordinatesType>({ top: 0, left: 0 });
-  const [showTooltip, setShowTooltip] = useState<boolean>(true);
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
 
-  const openPopover = () => {
+  const openTooltip = () => {
     if (!showTooltip) setShowTooltip(true);
   };
 
-  const closePopover = () => {
+  const closeTooltip = () => {
     if (showTooltip) setShowTooltip(false);
+  };
+
+  const togglePopover = () => setShowTooltip(!showTooltip);
+
+  const hoverProps = {
+    ...(trigger === "hover"
+      ? { onMouseEnter: openTooltip, onMouseLeave: closeTooltip }
+      : { onClick: togglePopover }),
   };
 
   useEffect(() => {
@@ -59,12 +67,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
 
   return (
     <>
-      <Container
-        className={className}
-        onMouseEnter={openPopover}
-        onMouseLeave={closePopover}
-        ref={triggerRef}
-      >
+      <Container className={className} {...hoverProps} ref={triggerRef}>
         {children}
       </Container>
       {showTooltip && (
