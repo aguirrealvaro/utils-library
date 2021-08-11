@@ -1,14 +1,19 @@
 import React, { FunctionComponent } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { Tooltip } from "../Tooltip";
+import { Modal } from "@/components";
+import { useModal } from "@/hooks";
 
 export const App: FunctionComponent = () => {
+  const { show, onClose, onOpen } = useModal();
+
   return (
     <ThemeProvider theme={theme}>
-      <Tooltip content="hover">
-        <span>Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
-      </Tooltip>
+      <button onClick={onOpen}>Open</button>
+      <Modal show={show} onClose={onClose}>
+        Modal
+      </Modal>
+      <div></div>
       <GlobalStyles />
     </ThemeProvider>
   );

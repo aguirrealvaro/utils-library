@@ -1,11 +1,9 @@
-import React, { FunctionComponent, useRef } from "react";
-import styled, { css, keyframes } from "styled-components";
-import { useDisableScroll, useOnClickOutside } from "../../hooks";
+import React, { FunctionComponent, useRef, useState, useEffect } from "react";
+import styled, { keyframes } from "styled-components";
+import { useDisableScroll, useOnClickOutside } from "@/hooks";
 import { ANIMATION_TIME, SIZES } from "./constants";
-import { useClosingAnimation } from "./useClosingAnimation";
 import { SizeType } from "./types";
-import { Icon } from "../Icon";
-import { Portal } from "../Portal";
+import { Icon, Portal } from "@/components";
 
 export type ModalProps = {
   show: boolean;
@@ -21,19 +19,28 @@ export const Modal: FunctionComponent<ModalProps> = ({
   size = "md",
   closeOnOutside = true,
 }) => {
+  const [delayed, setDelayed] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (show) setDelayed(true);
+  }, [show]);
+
+  const onAnimationEnd = () => {
+    if (!show) setDelayed(false);
+  };
+
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const { handleClose, isClosing } = useClosingAnimation(onClose);
-  useDisableScroll(show);
-  useOnClickOutside({ ref: contentRef, callback: handleClose, prevent: !closeOnOutside || !show });
+  useDisableScroll(delayed);
+  useOnClickOutside({ ref: contentRef, callback: onClose, prevent: !closeOnOutside || !delayed });
 
-  if (!show) return null;
+  if (!delayed) return null;
 
   return (
     <Portal>
-      <Backdrop isClosing={isClosing}>
-        <Content size={size} ref={contentRef} isClosing={isClosing}>
-          <CloseButton onClick={handleClose}>
+      <Backdrop onAnimationEnd={onAnimationEnd} show={show}>
+        <Content size={size} ref={contentRef} show={show}>
+          <CloseButton onClick={onClose}>
             <Icon icon="close" color="grey" />
           </CloseButton>
           {children}
@@ -63,7 +70,7 @@ const fadeOutScale = keyframes`
   to { opacity: 0; transform: scale(0.9);}
 `;
 
-const Backdrop = styled.div<{ isClosing: boolean }>`
+const Backdrop = styled.div<{ show: boolean }>`
   position: fixed;
   font-family: Arial;
   top: 0;
@@ -72,38 +79,28 @@ const Backdrop = styled.div<{ isClosing: boolean }>`
   height: 100%;
   overflow-y: auto;
   z-index: 1;
-  animation: ${fadeIn} ${ANIMATION_TIME}ms linear;
+  animation: ${({ show }) => (show ? fadeIn : fadeOut)} ${ANIMATION_TIME}ms linear;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  ${({ isClosing }) =>
-    isClosing &&
-    css`
-      animation: ${fadeOut} ${ANIMATION_TIME}ms linear;
-    `};
   ${({ theme }) => theme.breakpoint("md")} {
     animation: none;
     align-items: baseline;
   }
 `;
 
-const Content = styled.div<{ size: SizeType; isClosing: boolean }>`
+const Content = styled.div<{ size: SizeType; show: boolean }>`
   position: relative;
   width: ${({ size }) => SIZES[size]}px;
   min-height: 100px;
   padding: 2rem;
-  animation: ${fadeInScale} ${ANIMATION_TIME}ms ease-out;
+  animation: ${({ show }) => (show ? fadeInScale : fadeOutScale)} ${ANIMATION_TIME}ms linear;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 16px;
   box-shadow: 0px 4px 23px rgba(0, 0, 0, 0.11);
   display: flex;
   flex-direction: column;
-  ${({ isClosing }) =>
-    isClosing &&
-    css`
-      animation: ${fadeOutScale} ${ANIMATION_TIME}ms linear;
-    `};
   ${({ theme }) => theme.breakpoint("md")} {
     border-radius: 0;
     width: 100%;
