@@ -19,15 +19,23 @@ export const DropdownMenu: FunctionComponent<MainMenuProps> = ({ user, items }) 
   );
 
   return (
-    <Dropdown content={dropdownContent} placement="right">
-      <Profile>
-        <Icon icon="user" size="18px" marginRight="9px" />
-        <span>{user}</span>
-        <Icon icon="chevron_down" size="12px" marginLeft="9px" />
-      </Profile>
-    </Dropdown>
+    <Container>
+      <Dropdown content={dropdownContent} placement="right">
+        <Profile>
+          <Icon icon="user" size="18px" marginRight="9px" />
+          <span>{user}</span>
+          <Icon icon="chevron_down" size="12px" marginLeft="9px" />
+        </Profile>
+      </Dropdown>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  ${({ theme }) => theme.breakpoint("lg")} {
+    display: none;
+  }
+`;
 
 const Profile = styled.button`
   display: flex;
