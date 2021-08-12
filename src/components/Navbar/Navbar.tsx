@@ -1,6 +1,7 @@
+import { useDelayUnmount } from "@/hooks";
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
-import { Logo, MainMenu, DropdownMenu, Burger } from "./components";
+import { Logo, MainMenu, DropdownMenu, Burger, MobileMenu } from "./components";
 import { NavbarItem } from "./types";
 
 type NavbarProps = {
@@ -11,6 +12,8 @@ type NavbarProps = {
 };
 
 export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdownItems }) => {
+  const { show: showMobileMenu, onToggle, onClose } = useDelayUnmount();
+
   return (
     <Container>
       <Wrapper>
@@ -18,7 +21,8 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdo
           <Logo />
           <MainMenu items={mainItems} />
           <DropdownMenu user={user} items={dropdownItems} />
-          <Burger />
+          <Burger onClick={onToggle} />
+          {showMobileMenu && <MobileMenu showMobileMenu={showMobileMenu} />}
         </InnerContainer>
       </Wrapper>
     </Container>

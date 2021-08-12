@@ -19,6 +19,9 @@ export const MainMenu: FunctionComponent<MainMenuProps> = ({ items }) => (
 const Container = styled.div`
   display: flex;
   align-items: center;
+  ${({ theme }) => theme.breakpoint("lg")} {
+    display: none;
+  }
 `;
 
 const Item = styled.button`
