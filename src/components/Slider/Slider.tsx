@@ -18,6 +18,9 @@ export const Slider: FunctionComponent<SliderProps> = ({
 }) => {
   const [translate, setTranslate] = useState<number>(0);
   const [disableRight, setDisabledRight] = useState<boolean>(false);
+  const [isSliding, setIsSliding] = useState<boolean>(false);
+  const [startX, setStartX] = useState<number>(0);
+  const [currentTransate, setCurrentTranslate] = useState<number>(0);
 
   const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -50,6 +53,34 @@ export const Slider: FunctionComponent<SliderProps> = ({
       callbackRight?.();
     }
   };
+
+  useEffect(() => {
+    const handleTouchStart = (e: MouseEvent) => {
+      if (!sliderRef.current?.contains(e.target as Node)) return;
+      setIsSliding(true);
+      setStartX(e.clientX);
+      setCurrentTranslate(translate);
+    };
+    window.addEventListener("mousedown", handleTouchStart);
+    return () => window.removeEventListener("mousedown", handleTouchStart);
+  }, [translate]);
+
+  useEffect(() => {
+    const handleTouchEnd = () => {
+      setIsSliding(false);
+    };
+    window.addEventListener("mouseup", handleTouchEnd);
+    return () => window.removeEventListener("mouseup", handleTouchEnd);
+  }, []);
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      if (!isSliding) return;
+      console.log("moving");
+    };
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, [isSliding, translate]);
 
   return (
     <Container>
