@@ -12,7 +12,6 @@ type SliderProps = {
 
 export const Slider: FunctionComponent<SliderProps> = ({
   children,
-  slidesInScreen = 4.2,
   gap = 16,
   callbackLeft,
   callbackRight,
@@ -21,10 +20,6 @@ export const Slider: FunctionComponent<SliderProps> = ({
   const [disableRight, setDisabledRight] = useState<boolean>(false);
 
   const sliderRef = useRef<HTMLDivElement>(null);
-
-  //const slideWidth = (1200 - gap * (slidesInScreen - 1)) / slidesInScreen;
-  //const slidesLength = Children.toArray(children).length;
-  //const sliderWidth = slidesLength * slideWidth + gap * (slidesLength - 1);
 
   useEffect(() => {
     const sliderWidth = sliderRef.current?.scrollWidth || 0;
