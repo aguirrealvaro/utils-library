@@ -5,6 +5,7 @@ import { Tooltip, TooltipProps } from "../Tooltip/Tooltip";
 
 type ExclamationTooltip = {
   size?: string;
+  className?: string;
 } & TooltipProps;
 
 export const ExclamationTooltip: FunctionComponent<ExclamationTooltip> = ({

@@ -6,6 +6,7 @@ type SpinnerProps = {
   background?: string;
   size?: number;
   fullHeight?: boolean;
+  className?: string;
 };
 
 export const Spinner: FunctionComponent<SpinnerProps> = ({
@@ -13,8 +14,9 @@ export const Spinner: FunctionComponent<SpinnerProps> = ({
   background = "rgba(0, 0, 0, 0.15)",
   size,
   fullHeight = false,
+  className,
 }) => (
-  <Container fullHeight={fullHeight}>
+  <Container fullHeight={fullHeight} className={className}>
     <Loader color={color} background={background} size={size} />
   </Container>
 );

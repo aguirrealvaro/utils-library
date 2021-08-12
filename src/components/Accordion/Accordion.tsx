@@ -4,12 +4,13 @@ import { Icon } from "@/components";
 import { ANIMATION_TIME } from "./constants";
 
 type AccordionProps = {
-  title: string | JSX.Element;
-  content: string | JSX.Element;
+  header: JSX.Element;
+  content: JSX.Element;
   disabled?: boolean;
+  className?: string;
 };
 
-export const Accordion: FunctionComponent<AccordionProps> = ({ title, content, disabled }) => {
+export const Accordion: FunctionComponent<AccordionProps> = ({ header, content, disabled, className }) => {
   const [active, setActive] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -17,9 +18,9 @@ export const Accordion: FunctionComponent<AccordionProps> = ({ title, content, d
   const height = ref.current?.scrollHeight || 0;
 
   return (
-    <div>
+    <div className={className}>
       <Button onClick={toggle} disabled={disabled}>
-        <div>{title}</div>
+        <div>{header}</div>
         <Chevron icon="chevron_down" active={active} size="14px" />
       </Button>
       <Content ref={ref} height={height} active={active}>
@@ -33,7 +34,6 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
   width: 100%;
   &:disabled {
     opacity: 0.5;

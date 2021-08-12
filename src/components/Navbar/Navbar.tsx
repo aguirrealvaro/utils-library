@@ -9,9 +9,10 @@ type NavbarProps = {
   user: string;
   mainItems: NavbarItem[];
   dropdownItems: NavbarItem[];
+  className?: string;
 };
 
-export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdownItems }) => {
+export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdownItems, className }) => {
   const {
     show: showMobileMenu,
     onToggle,
@@ -20,7 +21,7 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdo
   } = useDelayUnmount({ timeout: ANIMATION_TIME });
 
   return (
-    <Container>
+    <Container className={className}>
       <Wrapper>
         <InnerContainer>
           <Logo />

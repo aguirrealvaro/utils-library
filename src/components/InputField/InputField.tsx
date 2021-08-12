@@ -12,6 +12,7 @@ type InputProps = {
   error?: string;
   disabled?: boolean;
   pattern?: string;
+  className?: string;
 };
 
 export const InputField: FunctionComponent<InputProps> = ({
@@ -24,6 +25,7 @@ export const InputField: FunctionComponent<InputProps> = ({
   inputId,
   error,
   disabled = false,
+  className,
 }) => {
   const onValidChange = (e: ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
     if (e.target.validity.valid) onChange?.(e);
@@ -42,7 +44,7 @@ export const InputField: FunctionComponent<InputProps> = ({
   };
 
   return (
-    <div>
+    <div className={className}>
       <InputContainer disabled={disabled} error={!!error}>
         <Input {...inputProps} />
         <Label htmlFor={inputId}>{placeholder}</Label>

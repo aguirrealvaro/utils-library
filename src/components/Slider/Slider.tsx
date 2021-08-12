@@ -8,6 +8,7 @@ type SliderProps = {
   gap?: number;
   callbackLeft?: () => void;
   callbackRight?: () => void;
+  className?: string;
 };
 
 export const Slider: FunctionComponent<SliderProps> = ({
@@ -15,6 +16,7 @@ export const Slider: FunctionComponent<SliderProps> = ({
   gap = 16,
   callbackLeft,
   callbackRight,
+  className,
 }) => {
   const [translate, setTranslate] = useState<number>(0);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -37,7 +39,7 @@ export const Slider: FunctionComponent<SliderProps> = ({
   };
 
   return (
-    <Container>
+    <Container className={className}>
       <Overflow>
         <SlideContainer translate={translate} ref={sliderRef}>
           {Children.map(children, (child) => (
