@@ -1,2 +1,2 @@
-export { Slider, Direction } from "./Slider";
+export { Slider } from "./Slider";
 export { Arrow } from "./Arrow";

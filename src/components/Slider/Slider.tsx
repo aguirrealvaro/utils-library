@@ -1,8 +1,7 @@
 import React, { FunctionComponent, Children, useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Arrow } from ".";
-
-export type Direction = "left" | "right";
+import { Direction } from "./types";
 
 type SliderProps = {
   slidesInScreen?: number;
@@ -79,10 +78,8 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Overflow = styled.div<{ emptyArrowStyles?: boolean }>`
+const Overflow = styled.div`
   overflow: hidden;
-  padding: 2rem 0;
-  margin: ${({ emptyArrowStyles }) => emptyArrowStyles && "0 1.5rem"};
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

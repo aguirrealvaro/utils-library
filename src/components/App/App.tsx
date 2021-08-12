@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { Accordion } from "@/components";
+import { Slider } from "@/components";
 
 export const App: FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Accordion title="Title" content="Contenido" />
+      <Slider></Slider>
       <GlobalStyles />
     </ThemeProvider>
   );
