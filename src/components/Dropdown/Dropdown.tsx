@@ -1,22 +1,22 @@
+import { useDelayUnmount } from "@/hooks";
 import React, { FunctionComponent, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
 import { ANIMATION_TIME } from "./constants";
 import { PlacementType, CoordinatesType, TriggerType } from "./types";
-import { useDelayUnmount } from "@/hooks";
 
-export type TooltipProps = {
-  content: string | JSX.Element;
+export type DropdownProps = {
+  content: JSX.Element;
   placement?: PlacementType;
   trigger?: TriggerType;
   className?: string;
 };
 
-export const Tooltip: FunctionComponent<TooltipProps> = ({
+export const Dropdown: FunctionComponent<DropdownProps> = ({
   children,
   content,
-  placement = "bottom",
-  trigger = "hover",
+  placement = "right",
+  trigger = "click",
   className,
 }) => {
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -35,29 +35,20 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
   useLayoutEffect(() => {
     const bounding = triggerRef.current?.getBoundingClientRect();
     const hoverWidth = hoverRef.current?.offsetWidth || 0;
-    const hoverHeight = hoverRef.current?.offsetHeight || 0;
 
     if (!bounding) return;
 
-    const gapX = 7;
-    const gapY = 5;
-
+    const gap = 5;
     const { x, y, width, height } = bounding;
-
     const verticalTop = x + width / 2 - hoverWidth / 2;
-    const horizontalLeft = y - height / 2 + window.scrollY;
 
     const positions: Record<PlacementType, CoordinatesType> = {
-      top: { top: verticalTop, left: y - hoverHeight - gapY + window.scrollY },
-      right: { top: x + width + gapX + window.scrollX, left: horizontalLeft },
-      bottom: { top: verticalTop, left: y + height + gapY + window.scrollY },
-      left: { top: x - hoverWidth - gapX + window.scrollX, left: horizontalLeft },
+      right: { top: verticalTop, left: y + height + gap + window.scrollY },
+      left: { top: verticalTop, left: y + height + gap + window.scrollY },
     };
 
     setCoords(positions[placement]);
   }, [triggerRef, placement, show]);
-
-  const isStringContent = typeof content === "string";
 
   return (
     <>
@@ -66,7 +57,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
       </Container>
       {show &&
         createPortal(
-          <Content coords={coords} ref={hoverRef} fadeOut={closeAnimation} isStringContent={isStringContent}>
+          <Content coords={coords} ref={hoverRef} fadeOut={closeAnimation}>
             {content}
           </Content>,
           document.querySelector("body")!
@@ -85,15 +76,10 @@ const fadeInScale = keyframes`
   to { opacity: 1; transform: scale(1);}
 `;
 
-const Content = styled.div<{ coords: CoordinatesType; fadeOut: boolean; isStringContent: boolean }>`
+const Content = styled.div<{ coords: CoordinatesType; fadeOut: boolean }>`
   position: absolute;
   top: ${({ coords }) => coords.left}px;
   left: ${({ coords }) => coords.top}px;
-  padding: 0.7rem;
-  background-color: ${({ theme }) => theme.colors.black};
-  color: ${({ theme }) => theme.colors.white};
-  border-radius: 4px;
-  font-size: 0.8rem;
   animation: ${fadeInScale} ${ANIMATION_TIME}ms ease-out;
   ${({ fadeOut }) =>
     fadeOut &&
@@ -101,12 +87,5 @@ const Content = styled.div<{ coords: CoordinatesType; fadeOut: boolean; isString
       opacity: 0;
       transform: scale(0.9);
       transition: all ${ANIMATION_TIME}ms ease-out;
-    `}
-  ${({ isStringContent }) =>
-    isStringContent &&
-    css`
-      max-width: 150px;
-      word-wrap: break-word;
-      white-space: normal;
     `}
 `;
