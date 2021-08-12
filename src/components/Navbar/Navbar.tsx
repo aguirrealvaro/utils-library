@@ -1,13 +1,7 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
-import { Logo } from "./components";
-
-type NavbarItem = {
-  label: string;
-  onClick: () => void;
-  disabled: boolean;
-  show: boolean;
-};
+import { Logo, MainMenu } from "./components";
+import { NavbarItem } from "./types";
 
 type NavbarProps = {
   user: string;
@@ -16,11 +10,14 @@ type NavbarProps = {
   mobileItems: NavbarItem[];
 };
 
-export const Navbar: FunctionComponent<NavbarProps> = () => {
+export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdownItems, mobileItems }) => {
   return (
     <Container>
       <Wrapper>
-        <Logo />
+        <InnerContainer>
+          <Logo />
+          <MainMenu items={mainItems} />
+        </InnerContainer>
       </Wrapper>
     </Container>
   );
@@ -42,4 +39,10 @@ const Wrapper = styled.div`
   max-width: 1200px;
   width: 90%;
   margin: 0 auto;
+`;
+
+const InnerContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
