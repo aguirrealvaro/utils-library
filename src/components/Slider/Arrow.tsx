@@ -9,13 +9,11 @@ type ArrowProps = {
   disabled: boolean;
 };
 
-export const Arrow: FunctionComponent<ArrowProps> = ({ direction, handleArrow, disabled }) => {
-  return (
-    <Button onClick={() => handleArrow(direction)} direction={direction} disabled={disabled}>
-      <Icon icon={`chevron_down`} size="13px" color="#666666" />
-    </Button>
-  );
-};
+export const Arrow: FunctionComponent<ArrowProps> = ({ direction, handleArrow, disabled }) => (
+  <Button onClick={() => handleArrow(direction)} direction={direction} disabled={disabled}>
+    <Icon icon={`chevron_${direction}`} size="12px" color="#666666" />
+  </Button>
+);
 
 const Button = styled.button<{ direction: Direction }>`
   align-self: baseline;
