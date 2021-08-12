@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { Tooltip } from "@/components";
+import { Accordion } from "@/components";
 
 export const App: FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Tooltip content="Hover">Trigger</Tooltip>
+      <Accordion title="Title" content="Contenido" />
       <GlobalStyles />
     </ThemeProvider>
   );

@@ -7,3 +7,4 @@ export { Tooltip } from "./Tooltip";
 export { ExclamationTooltip } from "./ExclamationTooltip";
 export { Dropdown } from "./Dropdown";
 export { Navbar } from "./Navbar";
+export { Accordion } from "./Accordion";
