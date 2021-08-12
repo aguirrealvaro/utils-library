@@ -21,7 +21,7 @@ export const useDelayUnmount = (
   const timeoutId = useRef<number>(0);
 
   const onOpen = useCallback(() => {
-    if (phase === "mounting") return;
+    if (phase === "mounting" || phase === "mounted") return;
     setPhase("mounting");
   }, [phase]);
 
@@ -31,8 +31,8 @@ export const useDelayUnmount = (
   }, [phase]);
 
   const onToggle = useCallback(() => {
-    if (phase === "mounted" || phase === "mounting") onClose();
-    if (phase === "unmounted" || phase === "unmounting") onOpen();
+    if (phase === "mounting" || phase === "mounted") onClose();
+    if (phase === "unmounting" || phase === "unmounted") onOpen();
   }, [onClose, onOpen, phase]);
 
   useEffect(() => {
