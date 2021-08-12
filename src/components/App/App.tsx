@@ -36,5 +36,4 @@ export const App: FunctionComponent = () => {
 const Item = styled.div`
   background: lightgrey;
   padding: 7px 12px;
-  height: 300px;
 `;

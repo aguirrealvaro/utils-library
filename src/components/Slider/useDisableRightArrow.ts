@@ -9,13 +9,5 @@ export const useDisableRightArrow = (translate: number, sliderRef: RefObject<HTM
     setDisabled(translate === sliderWidth - clientWidth);
   }, [translate, sliderRef]);
 
-  useEffect(() => {
-    const resetDisableRight = () => {
-      if (disabled) setDisabled(false);
-    };
-    window.addEventListener("resize", resetDisableRight);
-    return () => window.removeEventListener("resize", resetDisableRight);
-  }, [disabled]);
-
   return disabled;
 };

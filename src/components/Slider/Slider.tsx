@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Children, useState, useRef } from "react";
+import React, { FunctionComponent, Children, useState, useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Arrow } from ".";
 import { Direction } from "./types";
@@ -39,6 +39,15 @@ export const Slider: FunctionComponent<SliderProps> = ({
       callbackRight?.();
     }
   };
+
+  useEffect(() => {
+    const resetTranslate = () => {
+      if (!translate) return;
+      setTranslate(0);
+    };
+    window.addEventListener("resize", resetTranslate);
+    return () => window.removeEventListener("resize", resetTranslate);
+  }, [translate]);
 
   return (
     <Container className={className}>
