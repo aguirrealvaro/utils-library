@@ -22,7 +22,7 @@ export const Slider: FunctionComponent<SliderProps> = ({
 
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const slideWidth = (1200 - gap * (slidesInScreen - 1)) / slidesInScreen;
+  //const slideWidth = (1200 - gap * (slidesInScreen - 1)) / slidesInScreen;
   //const slidesLength = Children.toArray(children).length;
   //const sliderWidth = slidesLength * slideWidth + gap * (slidesLength - 1);
 
@@ -41,15 +41,15 @@ export const Slider: FunctionComponent<SliderProps> = ({
   }, [disableRight]);
 
   const handleArrow = (direction: Direction) => {
-    const card = slideWidth + gap;
+    const sliderWidth = sliderRef.current?.scrollWidth || 0;
+    const clientWidth = sliderRef.current?.clientWidth || 0;
+
     if (direction === "left") {
-      const result = translate - card;
+      const result = translate - clientWidth;
       setTranslate(result <= 0 ? 0 : result);
       callbackLeft?.();
     } else {
-      const result = translate + card;
-      const sliderWidth = sliderRef.current?.scrollWidth || 0;
-      const clientWidth = sliderRef.current?.clientWidth || 0;
+      const result = translate + clientWidth;
       const limit = sliderWidth - clientWidth;
       setTranslate(result >= limit ? limit : result);
       callbackRight?.();
@@ -61,9 +61,7 @@ export const Slider: FunctionComponent<SliderProps> = ({
       <Overflow>
         <SlideContainer translate={translate} ref={sliderRef}>
           {Children.map(children, (child) => (
-            <Slide width={slideWidth} gap={gap}>
-              {child}
-            </Slide>
+            <Slide gap={gap}>{child}</Slide>
           ))}
         </SlideContainer>
       </Overflow>
@@ -85,18 +83,12 @@ const Overflow = styled.div`
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SlideContainer = styled.div<{ translate?: any; width?: number }>`
   display: flex;
-  margin: 0 auto;
   transform: ${({ translate }) => `translateX(-${translate}px)`};
   transition: transform 0.4s ease;
 `;
 
-const Slide = styled.div<{ width: number; gap: number }>`
-  width: ${({ width }) => `${width}px`};
-  min-width: ${({ width }) => `${width}px`};
+const Slide = styled.div<{ gap: number }>`
   margin-right: ${({ gap }) => `${gap}px`};
-  > div {
-    width: 100%;
-  }
   &:last-child {
     margin-right: 0;
   }

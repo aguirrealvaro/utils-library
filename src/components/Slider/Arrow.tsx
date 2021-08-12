@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
 import { Icon } from "@/components";
-import { IconType } from "@/components/Icon/types";
 import { Direction } from "./types";
 
 type ArrowProps = {
@@ -13,7 +12,7 @@ type ArrowProps = {
 export const Arrow: FunctionComponent<ArrowProps> = ({ direction, handleArrow, disabled }) => {
   return (
     <Button onClick={() => handleArrow(direction)} direction={direction} disabled={disabled}>
-      <Icon icon={`chevron_${direction}` as IconType} size="18px" color="#666666" />
+      <Icon icon={`chevron_down`} size="13px" color="#666666" />
     </Button>
   );
 };
