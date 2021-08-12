@@ -1,5 +1,5 @@
 import React, { FunctionComponent, Children, useState, useRef } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Arrow } from ".";
 import { Direction } from "./types";
 import { useDisableRightArrow } from "./useDisableRightArrow";
@@ -9,6 +9,7 @@ type SliderProps = {
   callbackLeft?: () => void;
   callbackRight?: () => void;
   className?: string;
+  fullWidth?: boolean;
 };
 
 export const Slider: FunctionComponent<SliderProps> = ({
@@ -17,6 +18,7 @@ export const Slider: FunctionComponent<SliderProps> = ({
   callbackLeft,
   callbackRight,
   className,
+  fullWidth = false,
 }) => {
   const [translate, setTranslate] = useState<number>(0);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -43,7 +45,9 @@ export const Slider: FunctionComponent<SliderProps> = ({
       <Overflow>
         <SlideContainer translate={translate} ref={sliderRef}>
           {Children.map(children, (child) => (
-            <Slide gap={gap}>{child}</Slide>
+            <Slide gap={gap} fullWidth={fullWidth}>
+              {child}
+            </Slide>
           ))}
         </SlideContainer>
       </Overflow>
@@ -69,9 +73,16 @@ const SlideContainer = styled.div<{ translate?: any }>`
   transition: transform 0.4s ease;
 `;
 
-const Slide = styled.div<{ gap: number }>`
-  margin-right: ${({ gap }) => `${gap}px`};
-  &:last-child {
-    margin-right: 0;
-  }
+const Slide = styled.div<{ gap: number; fullWidth: boolean }>`
+  ${({ fullWidth, gap }) =>
+    fullWidth
+      ? css`
+          min-width: 100%;
+        `
+      : css`
+          margin-right: ${gap}px;
+          &:last-child {
+            margin-right: 0;
+          }
+        `}
 `;
