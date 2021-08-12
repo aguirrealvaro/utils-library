@@ -8,8 +8,8 @@ export const MainMenu: FunctionComponent<MainMenuProps> = ({ items }) => (
   <Container>
     {items
       .filter(({ show = true }) => show)
-      .map(({ label, onClick, disabled = false }) => (
-        <Item key={label} onClick={onClick} disabled={disabled}>
+      .map(({ label, onClick, disabled = false }, i) => (
+        <Item key={i} onClick={onClick} disabled={disabled}>
           {label}
         </Item>
       ))}

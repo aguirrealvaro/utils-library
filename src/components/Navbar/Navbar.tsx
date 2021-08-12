@@ -10,7 +10,7 @@ type NavbarProps = {
   mobileItems: NavbarItem[];
 };
 
-export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdownItems, mobileItems }) => {
+export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdownItems }) => {
   return (
     <Container>
       <Wrapper>

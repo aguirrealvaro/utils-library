@@ -20,9 +20,15 @@ export const useDelayUnmount = (
   const [phase, setPhase] = useState<PhasesType>("unmounted");
   const timeoutId = useRef<number>(0);
 
-  const onOpen = useCallback(() => setPhase("mounting"), []);
+  const onOpen = useCallback(() => {
+    if (phase === "mounting") return;
+    setPhase("mounting");
+  }, [phase]);
 
-  const onClose = useCallback(() => setPhase("unmounting"), []);
+  const onClose = useCallback(() => {
+    if (phase === "unmounting" || phase === "unmounted") return;
+    setPhase("unmounting");
+  }, [phase]);
 
   const onToggle = useCallback(() => {
     if (phase === "mounted" || phase === "mounting") onClose();
@@ -40,6 +46,11 @@ export const useDelayUnmount = (
       clearTimeout(timeoutId.current);
     };
   }, [phase, timeout]);
+
+  useEffect(() => {
+    window.addEventListener("resize", onClose);
+    return () => window.removeEventListener("resize", onClose);
+  }, [onClose]);
 
   const show = phase !== "unmounted";
   const closeAnimation = phase === "unmounting";
