@@ -3,6 +3,6 @@ export type CoordinatesType = {
   left: number;
 };
 
-export type PlacementType = "right" | "left";
+export type PlacementType = "right" | "left" | "center";
 
 export type TriggerType = "hover" | "click";

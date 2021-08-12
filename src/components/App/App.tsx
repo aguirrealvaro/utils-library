@@ -8,7 +8,7 @@ export const App: FunctionComponent = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Dropdown content={dropdown}>Open dropdown</Dropdown>
+      <Dropdown content={dropdown}>Open dropdownasdasdadad asdasd</Dropdown>
       <GlobalStyles />
     </ThemeProvider>
   );
@@ -16,9 +16,8 @@ export const App: FunctionComponent = () => {
 
 const DD = styled.div`
   background: black;
-  width: 200px;
-  height: 200px;
   border-radius: 8px;
   color: white;
   padding: 1rem;
+  font-size: 10px;
 `;

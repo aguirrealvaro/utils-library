@@ -15,7 +15,7 @@ export type DropdownProps = {
 export const Dropdown: FunctionComponent<DropdownProps> = ({
   children,
   content,
-  placement = "right",
+  placement = "center",
   trigger = "click",
   className,
 }) => {
@@ -34,17 +34,17 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
 
   useLayoutEffect(() => {
     const bounding = triggerRef.current?.getBoundingClientRect();
-    const hoverWidth = hoverRef.current?.offsetWidth || 0;
+    const dropdownWidth = hoverRef.current?.offsetWidth || 0;
 
     if (!bounding) return;
 
-    const gap = 5;
+    const gap = 7;
     const { x, y, width, height } = bounding;
-    const verticalTop = x + width / 2 - hoverWidth / 2;
 
     const positions: Record<PlacementType, CoordinatesType> = {
-      right: { top: verticalTop, left: y + height + gap + window.scrollY },
-      left: { top: verticalTop, left: y + height + gap + window.scrollY },
+      right: { top: x + width - dropdownWidth, left: y + height + gap + window.scrollY },
+      left: { top: x, left: y + height + gap + window.scrollY },
+      center: { top: x + width / 2 - dropdownWidth / 2, left: y + height + gap + window.scrollY },
     };
 
     setCoords(positions[placement]);
