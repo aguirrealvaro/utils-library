@@ -4,21 +4,17 @@ import { NavbarItem } from "../types";
 
 type MainMenuProps = { items: NavbarItem[] };
 
-export const MainMenu: FunctionComponent<MainMenuProps> = ({ items }) => {
-  return (
-    <Container>
-      {items
-        .filter(({ show = true }) => show)
-        .map(({ label, onClick, disabled = false }) => {
-          return (
-            <Item key={label} onClick={onClick} disabled={disabled}>
-              {label}
-            </Item>
-          );
-        })}
-    </Container>
-  );
-};
+export const MainMenu: FunctionComponent<MainMenuProps> = ({ items }) => (
+  <Container>
+    {items
+      .filter(({ show = true }) => show)
+      .map(({ label, onClick, disabled = false }) => (
+        <Item key={label} onClick={onClick} disabled={disabled}>
+          {label}
+        </Item>
+      ))}
+  </Container>
+);
 
 const Container = styled.div`
   display: flex;

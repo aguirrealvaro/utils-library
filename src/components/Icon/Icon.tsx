@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { paths, viewBox } from ".";
 import { theme } from "../App";
 
-export type IconType = "burger" | "close" | "exclamation";
+export type IconType = "burger" | "close" | "exclamation" | "user" | "chevron_down";
 
 type IconProps = {
   icon: IconType;

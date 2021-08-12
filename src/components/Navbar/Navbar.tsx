@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
-import { Logo, MainMenu } from "./components";
+import { Logo, MainMenu, DropdownMenu } from "./components";
 import { NavbarItem } from "./types";
 
 type NavbarProps = {
@@ -17,6 +17,7 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdo
         <InnerContainer>
           <Logo />
           <MainMenu items={mainItems} />
+          <DropdownMenu user={user} items={dropdownItems} />
         </InnerContainer>
       </Wrapper>
     </Container>
