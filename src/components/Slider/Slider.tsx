@@ -13,16 +13,17 @@ type SliderProps = {
 export const Slider: FunctionComponent<SliderProps> = ({
   children,
   gap = 16,
+  slidesInScreen,
   callbackLeft,
   callbackRight,
 }) => {
   const [translate, setTranslate] = useState<number>(0);
   const [disableRight, setDisabledRight] = useState<boolean>(false);
-  const [isSliding, setIsSliding] = useState<boolean>(false);
-  const [startX, setStartX] = useState<number>(0);
-  const [currentTransate, setCurrentTranslate] = useState<number>(0);
 
   const sliderRef = useRef<HTMLDivElement>(null);
+
+  // 900 hardcoded value
+  const slideWidth = slidesInScreen && (900 - gap * (slidesInScreen - 1)) / slidesInScreen;
 
   useEffect(() => {
     const sliderWidth = sliderRef.current?.scrollWidth || 0;
@@ -54,40 +55,14 @@ export const Slider: FunctionComponent<SliderProps> = ({
     }
   };
 
-  useEffect(() => {
-    const handleTouchStart = (e: MouseEvent) => {
-      if (!sliderRef.current?.contains(e.target as Node)) return;
-      setIsSliding(true);
-      setStartX(e.clientX);
-      setCurrentTranslate(translate);
-    };
-    window.addEventListener("mousedown", handleTouchStart);
-    return () => window.removeEventListener("mousedown", handleTouchStart);
-  }, [translate]);
-
-  useEffect(() => {
-    const handleTouchEnd = () => {
-      setIsSliding(false);
-    };
-    window.addEventListener("mouseup", handleTouchEnd);
-    return () => window.removeEventListener("mouseup", handleTouchEnd);
-  }, []);
-
-  useEffect(() => {
-    const handleMove = (e: MouseEvent) => {
-      if (!isSliding) return;
-      console.log("moving");
-    };
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, [isSliding, translate]);
-
   return (
     <Container>
       <Overflow>
         <SlideContainer translate={translate} ref={sliderRef}>
           {Children.map(children, (child) => (
-            <Slide gap={gap}>{child}</Slide>
+            <Slide width={slideWidth} gap={gap}>
+              {child}
+            </Slide>
           ))}
         </SlideContainer>
       </Overflow>
@@ -113,7 +88,8 @@ const SlideContainer = styled.div<{ translate?: any; width?: number }>`
   transition: transform 0.4s ease;
 `;
 
-const Slide = styled.div<{ gap: number }>`
+const Slide = styled.div<{ gap: number; width: number }>`
+  min-width: ${({ width }) => width && `${width}px`};
   margin-right: ${({ gap }) => `${gap}px`};
   &:last-child {
     margin-right: 0;
