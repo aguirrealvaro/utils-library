@@ -1,2 +1,2 @@
-export { Icon } from "./Icon";
+export { Icon, IconType } from "./Icon";
 export { paths, viewBox } from "./assets";
