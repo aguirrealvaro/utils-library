@@ -1,8 +1,9 @@
-import { useDelayUnmount } from "@/hooks";
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
 import { Logo, MainMenu, DropdownMenu, Burger, MobileMenu } from "./components";
+import { ANIMATION_TIME } from "./constants";
 import { NavbarItem } from "./types";
+import { useDelayUnmount } from "@/hooks";
 
 type NavbarProps = {
   user: string;
@@ -12,7 +13,12 @@ type NavbarProps = {
 };
 
 export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdownItems }) => {
-  const { show: showMobileMenu, onToggle, onClose } = useDelayUnmount();
+  const {
+    show: showMobileMenu,
+    onToggle,
+    onClose,
+    closeAnimation,
+  } = useDelayUnmount({ timeout: ANIMATION_TIME });
 
   return (
     <Container>
@@ -22,7 +28,9 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdo
           <MainMenu items={mainItems} />
           <DropdownMenu user={user} items={dropdownItems} />
           <Burger onClick={onToggle} />
-          {showMobileMenu && <MobileMenu showMobileMenu={showMobileMenu} />}
+          {showMobileMenu && (
+            <MobileMenu showMobileMenu={showMobileMenu} onClose={onClose} closeAnimation={closeAnimation} />
+          )}
         </InnerContainer>
       </Wrapper>
     </Container>
