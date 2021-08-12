@@ -18,7 +18,7 @@ export const MobileMenu: FunctionComponent<MobileMenuProps> = ({
   useOnClickOutside({ ref, callback: onClose, prevent: !showMobileMenu });
 
   return (
-    <Backdrop>
+    <Backdrop closeAnimation={closeAnimation}>
       <Container closeAnimation={closeAnimation} ref={ref}>
         MobileMenu
       </Container>
@@ -36,7 +36,7 @@ const translate = keyframes`
   to { transform: translateX(0); }
 `;
 
-const Backdrop = styled.div`
+const Backdrop = styled.div<{ closeAnimation: boolean }>`
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   animation: ${fadeIn} ${ANIMATION_TIME}ms ease-out;
@@ -45,6 +45,12 @@ const Backdrop = styled.div`
   right: 0;
   left: 0;
   bottom: 0;
+  ${({ closeAnimation }) =>
+    closeAnimation &&
+    css`
+      opacity: 0;
+      transition: opacity ${ANIMATION_TIME}ms ease-out;
+    `}
 `;
 
 const Container = styled.div<{ closeAnimation: boolean }>`
