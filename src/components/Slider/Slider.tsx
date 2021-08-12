@@ -1,11 +1,10 @@
-import React, { FunctionComponent, Children, useState, useRef, useCallback } from "react";
+import React, { FunctionComponent, Children, useState, useRef } from "react";
 import styled from "styled-components";
 import { Arrow } from ".";
 import { Direction } from "./types";
 import { useDisableRightArrow } from "./useDisableRightArrow";
 
 type SliderProps = {
-  slidesInScreen?: number;
   gap?: number;
   callbackLeft?: () => void;
   callbackRight?: () => void;
@@ -14,16 +13,12 @@ type SliderProps = {
 export const Slider: FunctionComponent<SliderProps> = ({
   children,
   gap = 16,
-  slidesInScreen,
   callbackLeft,
   callbackRight,
 }) => {
   const [translate, setTranslate] = useState<number>(0);
   const sliderRef = useRef<HTMLDivElement>(null);
   const disabledRightArrow = useDisableRightArrow(translate, sliderRef);
-
-  // FIX ME: 900 hardcoded value
-  const slideWidth = slidesInScreen && (900 - gap * (slidesInScreen - 1)) / slidesInScreen;
 
   const handleArrow = (direction: Direction) => {
     const sliderWidth = sliderRef.current?.scrollWidth || 0;
@@ -46,9 +41,7 @@ export const Slider: FunctionComponent<SliderProps> = ({
       <Overflow>
         <SlideContainer translate={translate} ref={sliderRef}>
           {Children.map(children, (child) => (
-            <Slide width={slideWidth} gap={gap}>
-              {child}
-            </Slide>
+            <Slide gap={gap}>{child}</Slide>
           ))}
         </SlideContainer>
       </Overflow>
@@ -74,8 +67,7 @@ const SlideContainer = styled.div<{ translate?: any }>`
   transition: transform 0.4s ease;
 `;
 
-const Slide = styled.div<{ gap: number; width?: number }>`
-  min-width: ${({ width }) => width && `${width}px`};
+const Slide = styled.div<{ gap: number }>`
   margin-right: ${({ gap }) => `${gap}px`};
   &:last-child {
     margin-right: 0;
