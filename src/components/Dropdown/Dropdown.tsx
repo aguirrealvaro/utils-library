@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
 import { ANIMATION_TIME } from "./constants";
 import { PlacementType, CoordinatesType, TriggerType } from "./types";
-import { useDelayUnmount } from "@/hooks";
+import { useDelayUnmount, useOnClickOutside } from "@/hooks";
 
 export type DropdownProps = {
   content: JSX.Element;
@@ -20,7 +20,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
   className,
 }) => {
   const triggerRef = useRef<HTMLDivElement>(null);
-  const hoverRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [coords, setCoords] = useState<CoordinatesType>({ top: 0, left: 0 });
 
@@ -32,9 +32,11 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
     ...(trigger === "hover" ? { onMouseEnter: onOpen, onMouseLeave: onClose } : { onClick: onToggle }),
   };
 
+  useOnClickOutside({ ref: dropdownRef, callback: onClose, prevent: !show || trigger === "hover" });
+
   useLayoutEffect(() => {
     const bounding = triggerRef.current?.getBoundingClientRect();
-    const dropdownWidth = hoverRef.current?.offsetWidth || 0;
+    const dropdownWidth = dropdownRef.current?.offsetWidth || 0;
 
     if (!bounding) return;
 
@@ -57,7 +59,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
       </Container>
       {show &&
         createPortal(
-          <Content coords={coords} ref={hoverRef} fadeOut={closeAnimation}>
+          <Content coords={coords} ref={dropdownRef} fadeOut={closeAnimation}>
             {content}
           </Content>,
           document.querySelector("body")!

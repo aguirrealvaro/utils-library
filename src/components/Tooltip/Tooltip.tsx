@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
 import { ANIMATION_TIME } from "./constants";
 import { PlacementType, CoordinatesType, TriggerType } from "./types";
-import { useDelayUnmount } from "@/hooks";
+import { useDelayUnmount, useOnClickOutside } from "@/hooks";
 
 export type TooltipProps = {
   content: string | JSX.Element;
@@ -31,6 +31,8 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
   const openProps = {
     ...(trigger === "hover" ? { onMouseEnter: onOpen, onMouseLeave: onClose } : { onClick: onToggle }),
   };
+
+  useOnClickOutside({ ref: hoverRef, callback: onClose, prevent: !show || trigger === "hover" });
 
   useLayoutEffect(() => {
     const bounding = triggerRef.current?.getBoundingClientRect();
