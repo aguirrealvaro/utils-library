@@ -6,3 +6,4 @@ export { Icon } from "./Icon";
 export { Tooltip } from "./Tooltip";
 export { ExclamationTooltip } from "./ExclamationTooltip";
 export { Dropdown } from "./Dropdown";
+export { Navbar } from "./Navbar";
