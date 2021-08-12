@@ -1,6 +1,7 @@
 import React, { useState, useRef, FunctionComponent } from "react";
 import styled from "styled-components";
 import { Icon } from "@/components";
+import { ANIMATION_TIME } from "./constants";
 
 type AccordionProps = {
   title: string | JSX.Element;
@@ -10,23 +11,20 @@ type AccordionProps = {
 
 export const Accordion: FunctionComponent<AccordionProps> = ({ title, content, disabled }) => {
   const [active, setActive] = useState(false);
-  const [maxHeight, setMaxHeight] = useState("0px");
   const ref = useRef<HTMLDivElement>(null);
 
-  const toggleAccordion = () => {
-    setActive(!active);
-    setMaxHeight(!active && ref.current ? `${ref.current.scrollHeight}px` : "0px");
-  };
+  const toggle = () => setActive(!active);
+  const height = ref.current?.scrollHeight || 0;
 
   return (
     <div>
-      <Button onClick={toggleAccordion} disabled={disabled}>
+      <Button onClick={toggle} disabled={disabled}>
         <div>{title}</div>
-        <CustomIcon icon="chevron_down" active={active} size="14px" />
+        <Chevron icon="chevron_down" active={active} size="14px" />
       </Button>
-      <ContentContainer ref={ref} maxHeight={maxHeight}>
-        <div>{content}</div>
-      </ContentContainer>
+      <Content ref={ref} height={height} active={active}>
+        {content}
+      </Content>
     </div>
   );
 };
@@ -37,18 +35,19 @@ const Button = styled.button`
   justify-content: space-between;
   margin-bottom: 0.5rem;
   width: 100%;
-  text-align: left;
   &:disabled {
     opacity: 0.5;
   }
 `;
-const CustomIcon = styled(Icon)<{ active: boolean }>`
+
+const Chevron = styled(Icon)<{ active: boolean }>`
   transition: transform 0.2s ease;
-  transform: ${({ active }) => (active ? "rotate(-180deg)" : "rotate(0deg)")};
+  transform: ${({ active }) => `rotate(${active ? "-180" : 0}deg)`};
+  transition: transform ${ANIMATION_TIME}ms ease;
 `;
 
-const ContentContainer = styled.div<{ maxHeight: string }>`
-  max-height: ${({ maxHeight }) => maxHeight};
+const Content = styled.div<{ height: number; active: boolean }>`
+  max-height: ${({ active, height }) => `${active ? height : 0}px`};
   overflow: hidden;
-  transition: max-height 0.2s ease;
+  transition: max-height ${ANIMATION_TIME}ms ease;
 `;
