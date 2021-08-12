@@ -1,7 +1,8 @@
-import React, { FunctionComponent, Children, useState, useRef, useEffect } from "react";
+import React, { FunctionComponent, Children, useState, useRef, useCallback } from "react";
 import styled from "styled-components";
 import { Arrow } from ".";
 import { Direction } from "./types";
+import { useDisableRightArrow } from "./useDisableRightArrow";
 
 type SliderProps = {
   slidesInScreen?: number;
@@ -18,26 +19,11 @@ export const Slider: FunctionComponent<SliderProps> = ({
   callbackRight,
 }) => {
   const [translate, setTranslate] = useState<number>(0);
-  const [disableRight, setDisabledRight] = useState<boolean>(false);
-
   const sliderRef = useRef<HTMLDivElement>(null);
+  const disabledRightArrow = useDisableRightArrow(translate, sliderRef);
 
-  // 900 hardcoded value
+  // FIX ME: 900 hardcoded value
   const slideWidth = slidesInScreen && (900 - gap * (slidesInScreen - 1)) / slidesInScreen;
-
-  useEffect(() => {
-    const sliderWidth = sliderRef.current?.scrollWidth || 0;
-    const clientWidth = sliderRef.current?.clientWidth || 0;
-    setDisabledRight(translate === sliderWidth - clientWidth);
-  }, [translate, sliderRef]);
-
-  useEffect(() => {
-    const resetDisableRight = () => {
-      if (disableRight) setDisabledRight(false);
-    };
-    window.addEventListener("resize", resetDisableRight);
-    return () => window.removeEventListener("resize", resetDisableRight);
-  }, [disableRight]);
 
   const handleArrow = (direction: Direction) => {
     const sliderWidth = sliderRef.current?.scrollWidth || 0;
@@ -67,7 +53,7 @@ export const Slider: FunctionComponent<SliderProps> = ({
         </SlideContainer>
       </Overflow>
       <Arrow direction="left" handleArrow={handleArrow} disabled={translate === 0} />
-      <Arrow direction="right" handleArrow={handleArrow} disabled={disableRight} />
+      <Arrow direction="right" handleArrow={handleArrow} disabled={disabledRightArrow} />
     </Container>
   );
 };
@@ -82,13 +68,13 @@ const Overflow = styled.div`
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const SlideContainer = styled.div<{ translate?: any; width?: number }>`
+const SlideContainer = styled.div<{ translate?: any }>`
   display: flex;
   transform: ${({ translate }) => `translateX(-${translate}px)`};
   transition: transform 0.4s ease;
 `;
 
-const Slide = styled.div<{ gap: number; width: number }>`
+const Slide = styled.div<{ gap: number; width?: number }>`
   min-width: ${({ width }) => width && `${width}px`};
   margin-right: ${({ gap }) => `${gap}px`};
   &:last-child {
