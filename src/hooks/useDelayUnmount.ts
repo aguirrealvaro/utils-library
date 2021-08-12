@@ -25,8 +25,8 @@ export const useDelayUnmount = (
   const onClose = useCallback(() => setPhase("unmounting"), []);
 
   const onToggle = useCallback(() => {
-    if (phase === "mounted") onClose();
-    if (phase === "unmounted") onOpen();
+    if (phase === "mounted" || phase === "mounting") onClose();
+    if (phase === "unmounted" || phase === "unmounting") onOpen();
   }, [onClose, onOpen, phase]);
 
   useEffect(() => {

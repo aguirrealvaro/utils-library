@@ -19,5 +19,5 @@ const DD = styled.div`
   border-radius: 8px;
   color: white;
   padding: 1rem;
-  font-size: 10px;
+  height: 200px;
 `;

@@ -1,9 +1,9 @@
-import { useDelayUnmount } from "@/hooks";
 import React, { FunctionComponent, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
 import { ANIMATION_TIME } from "./constants";
 import { PlacementType, CoordinatesType, TriggerType } from "./types";
+import { useDelayUnmount } from "@/hooks";
 
 export type DropdownProps = {
   content: JSX.Element;
@@ -15,7 +15,7 @@ export type DropdownProps = {
 export const Dropdown: FunctionComponent<DropdownProps> = ({
   children,
   content,
-  placement = "center",
+  placement = "left",
   trigger = "click",
   className,
 }) => {
@@ -71,21 +71,21 @@ const Container = styled.div`
   display: inline-block;
 `;
 
-const fadeInScale = keyframes`
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1);}
+const fadeInDow = keyframes`
+  from { opacity: 0; transform: translateY(-5%); }
+  to { opacity: 1; transform: translateY(0);}
 `;
 
 const Content = styled.div<{ coords: CoordinatesType; fadeOut: boolean }>`
   position: absolute;
   top: ${({ coords }) => coords.left}px;
   left: ${({ coords }) => coords.top}px;
-  animation: ${fadeInScale} ${ANIMATION_TIME}ms ease-out;
+  animation: ${fadeInDow} ${ANIMATION_TIME}ms ease-out;
   ${({ fadeOut }) =>
     fadeOut &&
     css`
       opacity: 0;
-      transform: scale(0.9);
+      transform: translateY(-5%);
       transition: all ${ANIMATION_TIME}ms ease-out;
     `}
 `;
