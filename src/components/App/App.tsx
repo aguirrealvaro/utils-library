@@ -20,13 +20,13 @@ export const App: FunctionComponent = () => {
       onClick: () => console.log("Item 3"),
     },
     {
-      label: "Item 3",
+      label: "Item 4",
       onClick: () => console.log("Item 4"),
+      show: false,
     },
     {
-      label: "Item 3",
+      label: "Item 5",
       onClick: () => console.log("Item 5"),
-      show: false,
     },
   ];
 

@@ -15,12 +15,12 @@ export const useOnClickOutside = ({ ref, callback, prevent }: OptionsType): void
       callback();
     };
 
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
+    document.addEventListener("click", listener);
+    document.addEventListener("touchend", listener);
 
     return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
+      document.removeEventListener("click", listener);
+      document.removeEventListener("touchend", listener);
     };
   }, [ref, callback, prevent]);
 };

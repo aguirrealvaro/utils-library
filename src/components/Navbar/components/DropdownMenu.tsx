@@ -15,7 +15,7 @@ export const DropdownMenu: FunctionComponent<MainMenuProps> = ({ user, items }) 
   );
 
   return (
-    <Dropdown content={dropdownContent}>
+    <Dropdown content={dropdownContent} placement="right">
       <Profile>
         <Icon icon="user" size="18px" marginRight="9px" />
         <span>{user}</span>
