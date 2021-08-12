@@ -9,7 +9,6 @@ type NavbarProps = {
   user: string;
   mainItems: NavbarItem[];
   dropdownItems: NavbarItem[];
-  mobileItems: NavbarItem[];
 };
 
 export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdownItems }) => {
@@ -29,7 +28,12 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdo
           <DropdownMenu user={user} items={dropdownItems} />
           <Burger onClick={onToggle} />
           {showMobileMenu && (
-            <MobileMenu showMobileMenu={showMobileMenu} onClose={onClose} closeAnimation={closeAnimation} />
+            <MobileMenu
+              showMobileMenu={showMobileMenu}
+              onClose={onClose}
+              closeAnimation={closeAnimation}
+              items={mainItems.concat(dropdownItems)}
+            />
           )}
         </InnerContainer>
       </Wrapper>

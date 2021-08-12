@@ -32,7 +32,7 @@ export const App: FunctionComponent = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Navbar user="User" mainItems={items} dropdownItems={items} mobileItems={items} />
+      <Navbar user="User" mainItems={items} dropdownItems={items} />
       <GlobalStyles />
     </ThemeProvider>
   );
