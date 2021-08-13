@@ -1,39 +1,14 @@
 import React, { FunctionComponent } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { Slider } from "@/components";
+import { useToastManager } from "../Toast";
 
 export const App: FunctionComponent = () => {
-  const items = [
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-    "item",
-  ];
+  const {} = useToastManager();
 
   return (
     <ThemeProvider theme={theme}>
-      <Slider>
-        {items.map((item, i) => (
-          <Item key={i}>{item}</Item>
-        ))}
-      </Slider>
       <GlobalStyles />
     </ThemeProvider>
   );
 };
-
-const Item = styled.div`
-  background: lightgrey;
-  padding: 7px 12px;
-`;
