@@ -8,11 +8,7 @@ type UseToastManagerReturnType = {
 };
 
 export const useToastManager = (): UseToastManagerReturnType => {
-  const { show } = useDelayUnmount({ timeout: DEFAULT_ANIMATION_TIME });
+  const { show, onOpen } = useDelayUnmount({ timeout: DEFAULT_ANIMATION_TIME });
 
-  const open = () => {
-    return <Toast show={show} />;
-  };
-
-  return { open };
+  return { open: onOpen };
 };
