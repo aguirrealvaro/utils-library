@@ -4,8 +4,6 @@ import { theme, GlobalStyles } from ".";
 import { useToastManager } from "../Toast";
 
 export const App: FunctionComponent = () => {
-  const {} = useToastManager();
-
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />

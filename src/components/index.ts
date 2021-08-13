@@ -10,3 +10,4 @@ export { Navbar } from "./Navbar";
 export { Accordion } from "./Accordion";
 export { Slider } from "./Slider";
 export { Toast } from "./Toast";
+export { Toggle } from "./Toggle";
