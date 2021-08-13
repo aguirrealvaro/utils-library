@@ -17,7 +17,7 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdo
     show: showMobileMenu,
     onToggle,
     onClose,
-    closeAnimation,
+    isUnmounting,
   } = useDelayUnmount({ timeout: ANIMATION_TIME });
 
   return (
@@ -32,7 +32,7 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ user, mainItems, dropdo
             <MobileMenu
               showMobileMenu={showMobileMenu}
               onClose={onClose}
-              closeAnimation={closeAnimation}
+              isUnmounting={isUnmounting}
               items={mainItems.concat(dropdownItems)}
             />
           )}

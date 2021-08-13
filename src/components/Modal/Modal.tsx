@@ -11,7 +11,7 @@ export type ModalProps = {
   onClose: () => void;
   size?: SizeType;
   closeOnOutside?: boolean;
-  closeAnimation?: boolean;
+  isUnmounting?: boolean;
   className?: string;
 };
 
@@ -21,7 +21,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
   onClose,
   size = "md",
   closeOnOutside = true,
-  closeAnimation = false,
+  isUnmounting = false,
   className,
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -32,8 +32,8 @@ export const Modal: FunctionComponent<ModalProps> = ({
   if (!show) return null;
 
   const Component = (
-    <Backdrop show={show} fadeOut={closeAnimation} className={className}>
-      <Content size={size} ref={contentRef} fadeOut={closeAnimation}>
+    <Backdrop show={show} fadeOut={isUnmounting} className={className}>
+      <Content size={size} ref={contentRef} fadeOut={isUnmounting}>
         <CloseButton onClick={onClose}>
           <Icon icon="close" color="grey" />
         </CloseButton>

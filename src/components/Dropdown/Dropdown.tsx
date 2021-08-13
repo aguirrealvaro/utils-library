@@ -24,7 +24,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
 
   const [coords, setCoords] = useState<CoordinatesType>({ top: 0, left: 0 });
 
-  const { show, onOpen, onClose, onToggle, closeAnimation } = useDelayUnmount({
+  const { show, onOpen, onClose, onToggle, isUnmounting } = useDelayUnmount({
     timeout: ANIMATION_TIME,
   });
 
@@ -64,7 +64,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
       </Container>
       {show &&
         createPortal(
-          <Content coords={coords} ref={dropdownRef} fadeOut={closeAnimation}>
+          <Content coords={coords} ref={dropdownRef} fadeOut={isUnmounting}>
             {content}
           </Content>,
           document.querySelector("body")!

@@ -8,22 +8,22 @@ import { NavbarItem } from "../types";
 type MobileMenuProps = {
   showMobileMenu: boolean;
   onClose: () => void;
-  closeAnimation: boolean;
+  isUnmounting: boolean;
   items: NavbarItem[];
 };
 
 export const MobileMenu: FunctionComponent<MobileMenuProps> = ({
   showMobileMenu,
   onClose,
-  closeAnimation,
+  isUnmounting,
   items,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside({ ref, callback: onClose, prevent: !showMobileMenu });
 
   return (
-    <Backdrop closeAnimation={closeAnimation}>
-      <Container closeAnimation={closeAnimation} ref={ref}>
+    <Backdrop isUnmounting={isUnmounting}>
+      <Container isUnmounting={isUnmounting} ref={ref}>
         <CloseButton onClick={onClose}>
           <Icon icon="close" />
         </CloseButton>
@@ -49,7 +49,7 @@ const translate = keyframes`
   to { transform: translateX(0); }
 `;
 
-const Backdrop = styled.div<{ closeAnimation: boolean }>`
+const Backdrop = styled.div<{ isUnmounting: boolean }>`
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   animation: ${fadeIn} ${ANIMATION_TIME}ms ease-out;
@@ -58,15 +58,15 @@ const Backdrop = styled.div<{ closeAnimation: boolean }>`
   right: 0;
   left: 0;
   bottom: 0;
-  ${({ closeAnimation }) =>
-    closeAnimation &&
+  ${({ isUnmounting }) =>
+    isUnmounting &&
     css`
       opacity: 0;
       transition: opacity ${ANIMATION_TIME}ms ease-out;
     `}
 `;
 
-const Container = styled.div<{ closeAnimation: boolean }>`
+const Container = styled.div<{ isUnmounting: boolean }>`
   position: fixed;
   top: 0;
   right: 0;
@@ -79,8 +79,8 @@ const Container = styled.div<{ closeAnimation: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  ${({ closeAnimation }) =>
-    closeAnimation &&
+  ${({ isUnmounting }) =>
+    isUnmounting &&
     css`
       transform: translateX(100%);
       transition: transform ${ANIMATION_TIME}ms ease-out;

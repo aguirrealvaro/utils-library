@@ -7,7 +7,7 @@ type UseDelayUnmountReturnType = {
   onOpen: () => void;
   onClose: () => void;
   onToggle: () => void;
-  closeAnimation: boolean;
+  isUnmounting: boolean;
 };
 
 type UseDelayUnmountType = {
@@ -53,7 +53,7 @@ export const useDelayUnmount = (
   }, [onClose]);
 
   const show = phase !== "unmounted";
-  const closeAnimation = phase === "unmounting";
+  const isUnmounting = phase === "unmounting";
 
-  return { show, onOpen, onClose, onToggle, closeAnimation };
+  return { show, onOpen, onClose, onToggle, isUnmounting };
 };

@@ -24,7 +24,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
 
   const [coords, setCoords] = useState<CoordinatesType>({ top: 0, left: 0 });
 
-  const { show, onOpen, onClose, onToggle, closeAnimation } = useDelayUnmount({
+  const { show, onOpen, onClose, onToggle, isUnmounting } = useDelayUnmount({
     timeout: ANIMATION_TIME,
   });
 
@@ -68,7 +68,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
       </Container>
       {show &&
         createPortal(
-          <Content coords={coords} ref={hoverRef} fadeOut={closeAnimation} isStringContent={isStringContent}>
+          <Content coords={coords} ref={hoverRef} fadeOut={isUnmounting} isStringContent={isStringContent}>
             {content}
           </Content>,
           document.querySelector("body")!
