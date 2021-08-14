@@ -9,5 +9,5 @@ export { Dropdown } from "./Dropdown";
 export { Navbar } from "./Navbar";
 export { Accordion } from "./Accordion";
 export { Slider } from "./Slider";
-export { Toast, useToastManager } from "./Toast";
+export { Toast } from "./Toast";
 export { Toggle } from "./Toggle";

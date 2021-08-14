@@ -1,2 +1,3 @@
 export { Toast } from "./Toast";
-export { useToastManager } from "./useToastManager";
+export { ToastContext, ToastProvider } from "./ToastProvider";
+export type { ToastContextType } from "./ToastProvider";
