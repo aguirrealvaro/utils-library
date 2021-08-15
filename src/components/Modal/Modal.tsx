@@ -41,7 +41,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
     </Backdrop>
   );
 
-  return createPortal(Component, document.querySelector("body")!);
+  return createPortal(Component, document.querySelector("root-portal")!);
 };
 
 const fadeIn = keyframes`

@@ -70,7 +70,7 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
           <Content coords={coords} ref={hoverRef} fadeOut={isUnmounting} isStringContent={isStringContent}>
             {content}
           </Content>,
-          document.querySelector("body")!
+          document.querySelector("root-portal")!
         )}
     </>
   );
