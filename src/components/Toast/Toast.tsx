@@ -1,9 +1,7 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
 
-export const Toast: FunctionComponent = ({ children }) => {
-  return <Container>{children}</Container>;
-};
+export const Toast: FunctionComponent = ({ children }) => <Container>{children}</Container>;
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.black};

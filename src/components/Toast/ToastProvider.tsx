@@ -1,5 +1,6 @@
 import React, { createContext, FunctionComponent, useCallback, useState } from "react";
 import { ToastContainer } from "./ToastContainer";
+import { ToastType } from ".";
 
 export type ToastContextType = {
   open: (content: string) => void;
@@ -7,10 +8,12 @@ export type ToastContextType = {
 
 export const ToastContext = createContext<ToastContextType>({} as ToastContextType);
 
-export const ToastProvider: FunctionComponent = ({ children }) => {
-  const [toasts, setToast] = useState<string[]>([]);
+let id = 0;
 
-  const open = useCallback((content: string) => setToast((toasts) => [...toasts, content]), []);
+export const ToastProvider: FunctionComponent = ({ children }) => {
+  const [toasts, setToast] = useState<ToastType[]>([]);
+
+  const open = useCallback((content: string) => setToast((toasts) => [...toasts, { id: id++, content }]), []);
 
   return (
     <ToastContext.Provider value={{ open }}>

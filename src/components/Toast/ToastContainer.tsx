@@ -1,18 +1,18 @@
 import React, { FunctionComponent } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
-import { Toast } from "./Toast";
+import { Toast, ToastType } from ".";
 
 type ToastContainerProps = {
-  toasts: string[];
+  toasts: ToastType[];
 };
 
 export const ToastContainer: FunctionComponent<ToastContainerProps> = ({ toasts }) => {
   const Component = (
     <Container>
-      {toasts.map((toast, i) => (
-        <Toast key={i}>
-          {toast} {i}
+      {toasts.map(({ content, id }) => (
+        <Toast key={id}>
+          {content} {id}
         </Toast>
       ))}
     </Container>
