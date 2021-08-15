@@ -2,9 +2,11 @@ import React, { FunctionComponent } from "react";
 import { useToast } from "@/components";
 
 export const TC: FunctionComponent = () => {
-  const { content } = useToast();
+  const { open } = useToast();
 
-  console.log({ content });
+  const onClick = () => {
+    open("hola");
+  };
 
-  return <div>hola</div>;
+  return <button onClick={onClick}>new toast</button>;
 };

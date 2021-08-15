@@ -66,7 +66,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = ({
           <Content coords={coords} ref={dropdownRef} fadeOut={isUnmounting}>
             {content}
           </Content>,
-          document.querySelector("root-portal")!
+          document.body
         )}
     </>
   );

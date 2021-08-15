@@ -1,15 +1,22 @@
 import React, { FunctionComponent } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
+import { Toast } from "./Toast";
 
 type ToastContainerProps = {
-  content: string;
+  toasts: string[];
 };
 
-export const ToastContainer: FunctionComponent<ToastContainerProps> = ({ content }) => {
-  const Component = <Container>{content}</Container>;
+export const ToastContainer: FunctionComponent<ToastContainerProps> = ({ toasts }) => {
+  const Component = (
+    <Container>
+      {toasts.map((toast, i) => (
+        <Toast key={i}>{toast}</Toast>
+      ))}
+    </Container>
+  );
 
-  return createPortal(Component, document.querySelector("root-portal")!);
+  return createPortal(Component, document.body);
 };
 
 const Container = styled.div`
