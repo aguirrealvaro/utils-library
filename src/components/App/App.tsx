@@ -1,18 +1,14 @@
 import React, { FunctionComponent } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { ToastProvider } from "../Toast";
-import { useToast } from "../Toast/useToast";
+import { TC } from "../TC/TC";
+import { ToastProvider } from "@/components/Toast";
 
 export const App: FunctionComponent = () => {
-  const { content, open } = useToast();
-
-  console.log({ content });
-
   return (
     <ThemeProvider theme={theme}>
       <ToastProvider>
-        asd
+        <TC />
         <GlobalStyles />
       </ToastProvider>
     </ThemeProvider>
