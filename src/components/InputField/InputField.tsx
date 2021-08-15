@@ -1,6 +1,5 @@
 import React, { FunctionComponent, ChangeEvent } from "react";
 import styled, { css } from "styled-components";
-import { COLORS } from "./constants";
 
 type InputProps = {
   inputId: string;
@@ -62,15 +61,15 @@ const InputContainer = styled.div<{
   padding: 0 1rem;
   height: 48px;
   border-radius: 4px;
-  ${({ error }) =>
+  ${({ theme, error }) =>
     error
       ? css`
-          border: 1px solid ${COLORS.RED};
+          border: 1px solid ${theme.colors.red};
         `
       : css`
           border: 1px solid rgba(0, 0, 0, 0.36);
           &:focus-within {
-            border: 1px solid ${COLORS.BLUE};
+            border: 1px solid ${theme.colors.blue};
             border-radius: 4px;
           }
         `};
@@ -94,7 +93,7 @@ const Label = styled.label`
   background-color: white;
   transition: 0.2s;
   pointer-events: none;
-  color: ${COLORS.GREY};
+  color: ${({ theme }) => theme.colors.grey};
 `;
 
 const Input = styled.input<{ error: boolean }>`
@@ -104,7 +103,7 @@ const Input = styled.input<{ error: boolean }>`
   &:focus + label {
     top: -0.15rem;
     left: 0.8rem;
-    color: ${({ error }) => COLORS[error ? "RED" : "BLUE"]};
+    color: ${({ theme, error }) => theme.colors[error ? "red" : "blue"]};
     font-size: 0.73rem;
     font-weight: 500;
   }
@@ -115,7 +114,7 @@ const Input = styled.input<{ error: boolean }>`
         left: 0.8rem;
         font-size: 0.73rem;
         font-weight: 500;
-        color: ${({ error }) => COLORS[error ? "RED" : "BLUE"]};
+        color: ${({ theme, error }) => theme.colors[error ? "red" : "blue"]};
       }
     }
   }
@@ -128,5 +127,5 @@ const Input = styled.input<{ error: boolean }>`
 const Bottom = styled.div<{ error: boolean }>`
   font-size: 13px;
   margin: 0.5rem 1rem 0 1rem;
-  color: ${({ error }) => COLORS[error ? "RED" : "GREY"]};
+  color: ${({ theme, error }) => theme.colors[error ? "red" : "grey"]};
 `;

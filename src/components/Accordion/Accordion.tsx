@@ -1,7 +1,7 @@
 import React, { useState, useRef, FunctionComponent } from "react";
 import styled from "styled-components";
 import { Icon } from "@/components";
-import { ANIMATION_TIME } from "./constants";
+import { ANIMATION_TIME } from ".";
 
 type AccordionProps = {
   header: JSX.Element;

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
 import { Icon } from "@/components";
-import { Direction } from "./types";
+import { Direction } from ".";
 
 type ArrowProps = {
   direction: Direction;

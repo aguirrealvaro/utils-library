@@ -1,7 +1,6 @@
 import React, { FunctionComponent, Children, useState, useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
-import { Arrow } from ".";
-import { Direction } from "./types";
+import { Arrow, Direction } from ".";
 import { useDisableRightArrow } from "./useDisableRightArrow";
 
 type SliderProps = {

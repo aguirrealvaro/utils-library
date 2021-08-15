@@ -1,9 +1,8 @@
 import React, { FunctionComponent, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
-import { ANIMATION_TIME } from "./constants";
-import { PlacementType, CoordinatesType, TriggerType } from "./types";
 import { useDelayUnmount, useOnClickOutside } from "@/hooks";
+import { PlacementType, CoordinatesType, TriggerType, ANIMATION_TIME } from ".";
 
 export type DropdownProps = {
   content: JSX.Element;

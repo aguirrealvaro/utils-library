@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
-import { paths, viewBox } from ".";
+import { paths, viewBox, IconType } from ".";
 import { theme } from "@/components/App";
-import { IconType } from "./types";
 
 type IconProps = {
   icon: IconType;

@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
 import { Logo, MainMenu, DropdownMenu, Burger, MobileMenu } from "./components";
-import { ANIMATION_TIME } from "./constants";
-import { NavbarItem } from "./types";
+import { ANIMATION_TIME, NavbarItem } from ".";
 import { useDelayUnmount } from "@/hooks";
 
 type NavbarProps = {
