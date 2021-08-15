@@ -1,7 +1,26 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import styled from "styled-components";
+import { useToast } from "./useToast";
 
-export const Toast: FunctionComponent = ({ children }) => <Container>{children}</Container>;
+type ToastProps = {
+  id: number;
+};
+
+export const Toast: FunctionComponent<ToastProps> = ({ children, id }) => {
+  const toast = useToast();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      toast.remove(id);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [id, toast]);
+
+  return <Container>{children}</Container>;
+};
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.black};

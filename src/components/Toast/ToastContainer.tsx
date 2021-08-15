@@ -11,7 +11,7 @@ export const ToastContainer: FunctionComponent<ToastContainerProps> = ({ toasts 
   const Component = (
     <Container>
       {toasts.map(({ content, id }) => (
-        <Toast key={id}>
+        <Toast key={id} id={id}>
           {content} {id}
         </Toast>
       ))}
