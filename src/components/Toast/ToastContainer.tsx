@@ -11,7 +11,9 @@ export const ToastContainer: FunctionComponent<ToastContainerProps> = ({ toasts 
   const Component = (
     <Container>
       {toasts.map((toast, i) => (
-        <Toast key={i}>{toast}</Toast>
+        <Toast key={i}>
+          {toast} {i}
+        </Toast>
       ))}
     </Container>
   );
@@ -21,6 +23,6 @@ export const ToastContainer: FunctionComponent<ToastContainerProps> = ({ toasts 
 
 const Container = styled.div`
   position: fixed;
-  bottom: 0;
-  left: 0;
+  bottom: 1rem;
+  right: 1rem;
 `;

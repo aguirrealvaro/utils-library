@@ -1,4 +1,4 @@
-import React, { createContext, FunctionComponent, useState } from "react";
+import React, { createContext, FunctionComponent, useCallback, useState } from "react";
 import { ToastContainer } from "./ToastContainer";
 
 export type ToastContextType = {
@@ -10,7 +10,7 @@ export const ToastContext = createContext<ToastContextType>({} as ToastContextTy
 export const ToastProvider: FunctionComponent = ({ children }) => {
   const [toasts, setToast] = useState<string[]>([]);
 
-  const open = (content: string) => setToast((toasts) => [...toasts, content]);
+  const open = useCallback((content: string) => setToast((toasts) => [...toasts, content]), []);
 
   return (
     <ToastContext.Provider value={{ open }}>
