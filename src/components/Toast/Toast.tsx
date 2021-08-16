@@ -8,6 +8,7 @@ export const Toast: FunctionComponent<ToastType> = ({ children, id, permanent })
 
   useEffect(() => {
     if (permanent) return;
+
     const timer = setTimeout(() => {
       toast.remove(id);
     }, 3000);
@@ -17,7 +18,9 @@ export const Toast: FunctionComponent<ToastType> = ({ children, id, permanent })
     };
   }, [id, toast, permanent]);
 
-  return <Container>{children}</Container>;
+  const closeToast = () => toast.remove(id);
+
+  return <Container onClick={closeToast}>{children}</Container>;
 };
 
 const Container = styled.div`
