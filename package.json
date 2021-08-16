@@ -9,7 +9,9 @@
     "build:dev": "webpack --color --env.environment=development",
     "build": "webpack --color --env.environment=production",
     "format": "prettier --write \"**/*.+(ts|tsx|js|jsx|json)\"",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +26,10 @@
     "@babel/preset-env": "7.15.0",
     "@babel/preset-react": "7.14.5",
     "@babel/preset-typescript": "7.15.0",
+    "@storybook/addon-actions": "^6.3.7",
+    "@storybook/addon-essentials": "^6.3.7",
+    "@storybook/addon-links": "^6.3.7",
+    "@storybook/react": "^6.3.7",
     "@types/react": "17.0.16",
     "@types/react-dom": "17.0.9",
     "@types/styled-components": "5.1.12",
