@@ -23,7 +23,7 @@ export const ToastProvider: FunctionComponent = ({ children }) => {
 
   return (
     <ToastContext.Provider value={{ open, remove }}>
-      <ToastContainer toasts={toasts} />
+      {!!toasts.length && <ToastContainer toasts={toasts} />}
       {children}
     </ToastContext.Provider>
   );
