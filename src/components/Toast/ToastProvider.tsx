@@ -1,6 +1,6 @@
-import React, { createContext, FunctionComponent, useCallback, useState } from "react";
+import React, { createContext, FunctionComponent, useCallback, useRef, useState } from "react";
 import { ToastContainer } from "./ToastContainer";
-import { ToastType } from ".";
+import { ToastType, ToastOptions } from ".";
 
 export type ToastContextType = {
   open: (content: string) => void;
@@ -9,12 +9,13 @@ export type ToastContextType = {
 
 export const ToastContext = createContext<ToastContextType>({} as ToastContextType);
 
-let id = 0;
-
 export const ToastProvider: FunctionComponent = ({ children }) => {
+  const timeoutRef = useRef<number>(0);
   const [toasts, setToast] = useState<ToastType[]>([]);
 
-  const open = useCallback((content: string) => setToast((toasts) => [...toasts, { id: id++, content }]), []);
+  const open = useCallback((content: string, options: ToastOptions = { permanent: false }) => {
+    setToast((toasts) => [...toasts, { id: timeoutRef.current++, content, ...options }]);
+  }, []);
 
   const remove = useCallback((id: number) => {
     setToast((toasts) => toasts.filter((toast) => toast.id !== id));
