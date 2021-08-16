@@ -39,9 +39,9 @@ export const Toast: FunctionComponent<ToastType> = ({ children, id, permanent })
   );
 };
 
-const fadeInScale = keyframes`
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1);}
+const translate = keyframes`
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
 `;
 
 const Container = styled.div<{ isClosing: boolean }>`
@@ -53,13 +53,11 @@ const Container = styled.div<{ isClosing: boolean }>`
   &:last-child {
     margin-bottom: 0;
   }
-
-  animation: ${fadeInScale} ${ANIMATION_TIME}ms ease-out;
+  animation: ${translate} ${ANIMATION_TIME}ms ease-out;
   ${({ isClosing }) =>
     isClosing &&
     css`
-      opacity: 0;
-      transform: scale(0.9);
-      transition: all ${ANIMATION_TIME}ms ease-out;
+      transform: translateX(100%);
+      transition: transform ${ANIMATION_TIME}ms ease-out;
     `}
 `;
