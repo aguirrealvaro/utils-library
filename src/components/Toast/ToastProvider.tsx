@@ -3,7 +3,7 @@ import { ToastContainer } from "./ToastContainer";
 import { ToastType, ToastOptions } from ".";
 
 export type ToastContextType = {
-  open: (content: string) => void;
+  open: (content: string, options?: ToastOptions) => void;
   remove: (id: number) => void;
 };
 

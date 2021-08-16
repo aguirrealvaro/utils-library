@@ -1,15 +1,13 @@
 import React, { FunctionComponent, useEffect } from "react";
 import styled from "styled-components";
+import { ToastType } from "./types";
 import { useToast } from "./useToast";
 
-type ToastProps = {
-  id: number;
-};
-
-export const Toast: FunctionComponent<ToastProps> = ({ children, id }) => {
+export const Toast: FunctionComponent<ToastType> = ({ children, id, permanent }) => {
   const toast = useToast();
 
   useEffect(() => {
+    if (permanent) return;
     const timer = setTimeout(() => {
       toast.remove(id);
     }, 3000);
@@ -17,7 +15,7 @@ export const Toast: FunctionComponent<ToastProps> = ({ children, id }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [id, toast]);
+  }, [id, toast, permanent]);
 
   return <Container>{children}</Container>;
 };

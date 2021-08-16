@@ -5,7 +5,7 @@ export const TC: FunctionComponent = () => {
   const { open } = useToast();
 
   const onClick = () => {
-    open("hola");
+    open("hola", { permanent: true });
   };
 
   return <button onClick={onClick}>new toast</button>;

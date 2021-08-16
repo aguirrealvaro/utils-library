@@ -10,11 +10,14 @@ type ToastContainerProps = {
 export const ToastContainer: FunctionComponent<ToastContainerProps> = ({ toasts }) => {
   const Component = (
     <Container>
-      {toasts.map(({ content, id }) => (
-        <Toast key={id} id={id}>
-          {content} {id}
-        </Toast>
-      ))}
+      {toasts.map((props) => {
+        const { id, content } = props;
+        return (
+          <Toast key={id} {...props}>
+            {content} {id}
+          </Toast>
+        );
+      })}
     </Container>
   );
 
