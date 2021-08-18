@@ -2,7 +2,8 @@ import React, { FunctionComponent, useRef } from "react";
 import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
 import { useDisableScroll, useOnClickOutside } from "@/hooks";
-import { ANIMATION_TIME, SIZES, SizeType } from ".";
+import { SIZES, SizeType } from ".";
+import { ANIMATION_TIME } from "./constants";
 import { Icon } from "@/components";
 
 export type ModalProps = {
