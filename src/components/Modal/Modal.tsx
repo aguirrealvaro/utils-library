@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useRef } from "react";
 import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
-import { useDisableScroll, useOnClickOutside } from "@/hooks";
+import { useDisableScroll, useOnClickOutside, useOnKeyPress } from "@/hooks";
 import { SIZES, SizeType } from ".";
 import { ANIMATION_TIME } from "./constants";
 import { Icon } from "@/components";
@@ -10,7 +10,7 @@ export type ModalProps = {
   show: boolean;
   onClose: () => void;
   size?: SizeType;
-  closeOnOutside?: boolean;
+  closeOnInteractions?: boolean;
   isUnmounting?: boolean;
   className?: string;
 };
@@ -20,14 +20,15 @@ export const Modal: FunctionComponent<ModalProps> = ({
   show,
   onClose,
   size = "md",
-  closeOnOutside = true,
+  closeOnInteractions = true,
   isUnmounting = false,
   className,
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useDisableScroll(show);
-  useOnClickOutside({ ref: contentRef, callback: onClose, prevent: !closeOnOutside || !show });
+  useOnClickOutside({ ref: contentRef, callback: onClose, prevent: !closeOnInteractions || !show });
+  useOnKeyPress({ targetKey: "Escape", callback: onClose, prevent: !closeOnInteractions || !show });
 
   if (!show) return null;
 
