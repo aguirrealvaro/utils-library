@@ -1,20 +1,23 @@
-import React, { FunctionComponent, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import styled, { css } from "styled-components";
 import { Icon } from "@/components";
 import { theme } from "@/components/App";
 import { useOnClickOutside } from "@/hooks";
-
-export type SelectOptionProps = {
-  label: string | JSX.Element;
-  onClick: () => void;
-  disabled?: boolean;
-  isSelected: boolean;
-};
+import { LabelValue } from "./types";
 
 type SelectProps = {
   placeholder: string;
-  options: SelectOptionProps[];
-  value?: string;
+  value: string | undefined;
+  onChange: Dispatch<SetStateAction<string | undefined>>;
+  options: LabelValue[];
   disabled?: boolean;
   helpText?: string;
   error?: string;
@@ -23,6 +26,7 @@ type SelectProps = {
 export const Select: FunctionComponent<SelectProps> = ({
   placeholder,
   value,
+  onChange,
   options,
   disabled,
   helpText,
@@ -39,20 +43,26 @@ export const Select: FunctionComponent<SelectProps> = ({
     if (value) closeDropdown();
   }, [value, closeDropdown]);
 
+  const valueSelected = options.find((option) => option.value === value)?.label;
+
   return (
     <Container ref={containerRef}>
       <Button onClick={() => setIsOpen(!isOpen)} disabled={disabled} hasValue={!!value} error={!!error}>
         {value && <Placeholder>{placeholder}</Placeholder>}
-        <Value>{value || placeholder}</Value>
+        <span>{valueSelected || placeholder}</span>
         <Icon icon="chevron_down" size="10px" color={theme.colors.grey} />
       </Button>
       {isOpen && (
         <Dropdown>
-          {options.map(({ label, onClick, disabled, isSelected }, i) => (
-            <Option key={i} onClick={onClick} disabled={disabled} isSelected={isSelected}>
-              {label}
-            </Option>
-          ))}
+          {options.map((option, i) => {
+            const onClick = () => onChange(option.value);
+            const isSelected = value === option.value;
+            return (
+              <Option key={i} onClick={onClick} disabled={option.disabled} isSelected={isSelected}>
+                {option.label}
+              </Option>
+            );
+          })}
         </Dropdown>
       )}
       {(helpText || error) && <BottomText error={!!error}>{error || helpText}</BottomText>}
@@ -97,16 +107,11 @@ const Button = styled.button<{ hasValue: boolean; error: boolean }>`
   }
 `;
 
-const Value = styled.span`
-  display: block;
-  margin-right: 1rem;
-`;
-
 const Dropdown = styled.div`
   position: absolute;
   z-index: 1;
   padding: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   background: #fff;
   box-shadow: 0px 4px 23px rgba(0, 0, 0, 0.11);
   border-radius: 8px;
@@ -115,6 +120,7 @@ const Dropdown = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  transform: translateY(5px);
 `;
 
 const Option = styled.button<{ isSelected: boolean }>`
@@ -145,7 +151,7 @@ const Option = styled.button<{ isSelected: boolean }>`
 const BottomText = styled.span<{ error: boolean }>`
   display: block;
   color: ${({ theme, error }) => theme.colors[error ? "red" : "grey"]};
-  font-size: 0.73rem;
+  font-size: 0.75rem;
   margin-top: 0.4rem;
   margin-left: 1rem;
 `;

@@ -1,3 +1,2 @@
 export { Select } from "./Select";
-export type { SelectOptionProps } from "./Select";
-export { buildSelectOptions } from "./utils";
+export type { LabelValue } from "./types";
