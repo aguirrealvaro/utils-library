@@ -1,20 +1,30 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from ".";
-import { ToastProvider } from "@/components/Toast";
-import { useDelayUnmount } from "@/hooks";
-import { Modal } from "../Modal";
+import { ToastProvider, Select } from "@/components";
+import { buildSelectOptions } from "../Select";
+import { LabelValue } from "../Select/types";
 
 export const App: FunctionComponent = () => {
-  const { show, onClose, onOpen, isUnmounting } = useDelayUnmount();
+  const [option, setOption] = useState<LabelValue | undefined>(undefined);
+
+  const options = [
+    { label: "Opcion 1", value: "opcion1" },
+    { label: "Opcion 2", value: "opcion2" },
+    { label: "Opcion 2", value: "opcion2" },
+    { label: "Opcion 2", value: "opcion2" },
+    { label: "Opcion 2", value: "opcion2" },
+    { label: "Opcion 2", value: "opcion2" },
+    { label: "Opcion 2", value: "opcion2" },
+    { label: "Opcion 2", value: "opcion2" },
+  ];
+
+  const optionsSelect = buildSelectOptions(options, option, setOption);
 
   return (
     <ThemeProvider theme={theme}>
       <ToastProvider>
-        <button onClick={onOpen}>open</button>
-        <Modal show={show} onClose={onClose} isUnmounting={isUnmounting}>
-          modal!
-        </Modal>
+        <Select placeholder="Placeholder" options={optionsSelect} value={option?.value} />
         <GlobalStyles />
       </ToastProvider>
     </ThemeProvider>

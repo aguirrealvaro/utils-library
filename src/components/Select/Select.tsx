@@ -47,15 +47,13 @@ export const Select: FunctionComponent<SelectProps> = ({
         <Icon icon="chevron_down" size="10px" color={theme.colors.grey} />
       </Button>
       {isOpen && (
-        <DropdownContainer>
-          <Dropdown>
-            {options.map(({ label, onClick, disabled, isSelected }, i) => (
-              <Option key={i} onClick={onClick} disabled={disabled} isSelected={isSelected}>
-                {label}
-              </Option>
-            ))}
-          </Dropdown>
-        </DropdownContainer>
+        <Dropdown>
+          {options.map(({ label, onClick, disabled, isSelected }, i) => (
+            <Option key={i} onClick={onClick} disabled={disabled} isSelected={isSelected}>
+              {label}
+            </Option>
+          ))}
+        </Dropdown>
       )}
       {(helpText || error) && <BottomText error={!!error}>{error || helpText}</BottomText>}
     </Container>
@@ -104,7 +102,7 @@ const Value = styled.span`
   margin-right: 1rem;
 `;
 
-const DropdownContainer = styled.div`
+const Dropdown = styled.div`
   position: absolute;
   z-index: 1;
   padding: 0.5rem;
@@ -112,9 +110,7 @@ const DropdownContainer = styled.div`
   background: #fff;
   box-shadow: 0px 4px 23px rgba(0, 0, 0, 0.11);
   border-radius: 8px;
-`;
-
-const Dropdown = styled.div`
+  width: 100%;
   max-height: 250px;
   display: flex;
   flex-direction: column;
