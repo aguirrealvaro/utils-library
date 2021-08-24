@@ -1,21 +1,24 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-
-import { Modal } from "./Modal";
+import { Modal } from "@/components";
+import { useDelayUnmount } from "@/hooks";
 
 export default {
-  title: "Example/Modal",
+  title: "Components/Modal",
   component: Modal,
 } as ComponentMeta<typeof Modal>;
 
-const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
+const Template: ComponentStory<typeof Modal> = (args) => {
+  const { show, onOpen, onClose } = useDelayUnmount();
+
+  return (
+    <>
+      <button onClick={onOpen}>open modal</button>
+      <Modal show={show} onClose={onClose}>
+        Modal!
+      </Modal>
+    </>
+  );
+};
 
 export const Primary = Template.bind({});
-Primary.args = {
-  content: "Modal 1",
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
-  content: "Modal 2",
-};
