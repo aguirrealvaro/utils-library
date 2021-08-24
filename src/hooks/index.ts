@@ -1,5 +1,10 @@
+export { useDebounce } from "./useDebounce";
 export { useDisableScroll } from "./useDisableScroll";
 export { useOnClickOutside } from "./useOnClickOutside";
-export { useModal } from "./useModal";
+export { useWindowResize } from "./useWindowResize";
+export { useOnTabChange } from "./useOnTabChange";
+export { useAnimationEnd } from "./useAnimationEnd";
 export { useDelayUnmount } from "./useDelayUnmount";
 export { useOnKeyPress } from "./useOnKeyPress";
+export { usePreviousValue } from "./usePreviousValue";
+export { useLocalStorage } from "./useLocalStorage";
