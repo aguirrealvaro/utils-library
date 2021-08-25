@@ -1,6 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyles } from "@/components/App";
+import { ToastProvider } from "@/components";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -15,8 +16,10 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
-      <Story />
-      <GlobalStyles />
+      <ToastProvider>
+        <Story />
+        <GlobalStyles />
+      </ToastProvider>
     </ThemeProvider>
   ),
 ];
