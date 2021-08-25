@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { useToast } from "@/components";
 import styled from "styled-components";
 
@@ -6,7 +6,7 @@ export default {
   title: "Components/Toast",
 };
 
-export const Primary = () => {
+export const Primary: FunctionComponent = () => {
   const toast = useToast();
 
   return <Button onClick={() => toast.open("Open toast")}>Open toast</Button>;

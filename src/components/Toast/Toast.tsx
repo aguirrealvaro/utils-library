@@ -1,36 +1,42 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { ToastType } from "./types";
 import { useToast } from "./useToast";
 
 const ANIMATION_TIME = 200;
+const DURATION_TIME = 3000;
 
 export const Toast: FunctionComponent<ToastType> = ({ children, id, permanent }) => {
   const [isClosing, setIsClosing] = useState<boolean>(false);
+  const timeoutRef = useRef<number>(0);
 
   const toast = useToast();
 
   useEffect(() => {
     if (permanent) return;
 
-    setIsClosing(true);
-    const timer = setTimeout(() => {
-      toast.remove(id);
-      setIsClosing(false);
-    }, ANIMATION_TIME);
-
-    return () => {
-      clearTimeout(timer);
-    };
+    timeoutRef.current = window.setTimeout(() => {
+      setIsClosing(true);
+      timeoutRef.current = window.setTimeout(() => {
+        setIsClosing(false);
+        toast.remove(id);
+      }, ANIMATION_TIME);
+    }, DURATION_TIME);
   }, [id, toast, permanent]);
 
   const closeToast = () => {
     setIsClosing(true);
-    setTimeout(() => {
-      toast.remove(id);
+    timeoutRef.current = window.setTimeout(() => {
       setIsClosing(false);
+      toast.remove(id);
     }, ANIMATION_TIME);
   };
+
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   return (
     <Container onClick={closeToast} isClosing={isClosing}>
@@ -53,11 +59,11 @@ const Container = styled.div<{ isClosing: boolean }>`
   &:last-child {
     margin-bottom: 0;
   }
-  animation: ${translate} ${ANIMATION_TIME}ms ease-out;
+  animation: ${translate} ${ANIMATION_TIME}ms linear;
   ${({ isClosing }) =>
     isClosing &&
     css`
       transform: translateX(100%);
-      transition: transform ${ANIMATION_TIME}ms ease-out;
+      transition: transform ${ANIMATION_TIME}ms linear;
     `}
 `;
