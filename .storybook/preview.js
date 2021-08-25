@@ -14,11 +14,9 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <div style={{ alignSelf: "baseline" }}>
-      <ThemeProvider theme={theme}>
-        <Story />
-        <GlobalStyles />
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Story />
+      <GlobalStyles />
+    </ThemeProvider>
   ),
 ];

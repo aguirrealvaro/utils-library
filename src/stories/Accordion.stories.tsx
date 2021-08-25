@@ -8,7 +8,7 @@ export default {
 } as ComponentMeta<typeof Accordion>;
 
 export const Primary: ComponentStory<typeof Accordion> = () => {
-  const header = <>header</>;
+  const header = <>Click me</>;
   const content = (
     <>
       content

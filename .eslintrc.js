@@ -16,7 +16,7 @@ module.exports = {
     },
   },
   rules: {
-    "no-console": 1,
+    "no-console": 0,
     "@typescript-eslint/no-var-requires": 1,
     "prettier/prettier": 2,
     "react/prop-types": "off",

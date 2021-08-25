@@ -25,5 +25,5 @@ export const Primary: ComponentStory<typeof Dropdown> = () => {
     </>
   );
 
-  return <Dropdown content={content}>Open dropdown</Dropdown>;
+  return <Dropdown content={content}>Click to open dropdown</Dropdown>;
 };
