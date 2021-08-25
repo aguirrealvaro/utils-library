@@ -1,8 +1,10 @@
 import React, { FunctionComponent, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
-import { PlacementType, CoordinatesType, TriggerType, ANIMATION_TIME } from ".";
+import { PlacementType, CoordinatesType, TriggerType } from ".";
 import { useDelayUnmount, useOnClickOutside } from "@/hooks";
+
+const ANIMATION_TIME = 150;
 
 export type TooltipProps = {
   content: string | JSX.Element;
