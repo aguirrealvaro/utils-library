@@ -1,13 +1,13 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { ExclamationTooltip } from "@/components";
+import { Tooltip } from "@/components";
 
 export default {
-  title: "Components/ExclamationTooltip",
-  component: ExclamationTooltip,
-} as ComponentMeta<typeof ExclamationTooltip>;
+  title: "Components/Tooltip",
+  component: Tooltip,
+} as ComponentMeta<typeof Tooltip>;
 
-export const Primary: ComponentStory<typeof ExclamationTooltip> = () => {
+export const Primary: ComponentStory<typeof Tooltip> = () => {
   const content = (
     <>
       content
@@ -25,5 +25,9 @@ export const Primary: ComponentStory<typeof ExclamationTooltip> = () => {
     </>
   );
 
-  return <ExclamationTooltip content={content} placement="right" />;
+  return (
+    <Tooltip content={content} placement="right">
+      Hover it
+    </Tooltip>
+  );
 };
