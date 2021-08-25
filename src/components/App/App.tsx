@@ -6,6 +6,7 @@ import { ToastProvider } from "@/components";
 export const App: FunctionComponent = () => (
   <ThemeProvider theme={theme}>
     <ToastProvider>
+      App
       <GlobalStyles />
     </ToastProvider>
   </ThemeProvider>
