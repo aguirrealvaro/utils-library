@@ -1,12 +1,12 @@
-import React, { FunctionComponent, ChangeEvent } from "react";
+import React, { FunctionComponent, ChangeEvent, HTMLProps } from "react";
 import styled, { css } from "styled-components";
 
 type InputProps = {
   inputId: string;
+  value: string;
   placeholder?: string;
-  value?: string;
+  onChange?: HTMLProps<HTMLInputElement>["onChange"];
   name?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   helpText?: string | JSX.Element;
   error?: string;
   disabled?: boolean;
