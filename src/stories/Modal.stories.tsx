@@ -2,23 +2,28 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Modal } from "@/components";
 import { useDelayUnmount } from "@/hooks";
+import styled from "styled-components";
 
 export default {
   title: "Components/Modal",
   component: Modal,
 } as ComponentMeta<typeof Modal>;
 
-const Template: ComponentStory<typeof Modal> = (args) => {
+export const Primary: ComponentStory<typeof Modal> = (args) => {
   const { show, onOpen, onClose, isUnmounting } = useDelayUnmount();
 
   return (
     <>
-      <button onClick={onOpen}>open modal</button>
+      <Button onClick={onOpen}>open modal</Button>
       <Modal show={show} onClose={onClose} isUnmounting={isUnmounting}>
-        Modal!
+        Modal
       </Modal>
     </>
   );
 };
 
-export const Primary = Template.bind({});
+const Button = styled.button`
+  align-self: baseline;
+  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
+`;
