@@ -9,12 +9,12 @@ export default {
 } as ComponentMeta<typeof Modal>;
 
 const Template: ComponentStory<typeof Modal> = (args) => {
-  const { show, onOpen, onClose } = useDelayUnmount();
+  const { show, onOpen, onClose, isUnmounting } = useDelayUnmount();
 
   return (
     <>
       <button onClick={onOpen}>open modal</button>
-      <Modal show={show} onClose={onClose}>
+      <Modal show={show} onClose={onClose} isUnmounting={isUnmounting}>
         Modal!
       </Modal>
     </>
