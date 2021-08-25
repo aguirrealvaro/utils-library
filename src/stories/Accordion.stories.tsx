@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Accordion } from "@/components";
 
@@ -10,7 +9,22 @@ export default {
 
 export const Primary: ComponentStory<typeof Accordion> = () => {
   const header = <>header</>;
-  const content = <>content</>;
+  const content = (
+    <>
+      content
+      <br />
+      content
+      <br />
+      content
+      <br />
+      content
+      <br />
+      content
+      <br />
+      content
+      <br />
+    </>
+  );
 
   return <Accordion header={header} content={content} />;
 };

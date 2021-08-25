@@ -1,7 +1,8 @@
 import React, { useState, useRef, FunctionComponent } from "react";
 import styled from "styled-components";
 import { Icon } from "@/components";
-import { ANIMATION_TIME } from ".";
+
+const ANIMATION_TIME = 200;
 
 type AccordionProps = {
   header: JSX.Element;
@@ -21,7 +22,7 @@ export const Accordion: FunctionComponent<AccordionProps> = ({ header, content, 
     <div className={className}>
       <Button onClick={toggle} disabled={disabled}>
         <div>{header}</div>
-        <Chevron icon="chevron_down" active={active} size="14px" />
+        <Chevron icon="chevron_down" active={active} size="14px" marginLeft="10px" />
       </Button>
       <Content ref={ref} height={height} active={active}>
         {content}
