@@ -56,6 +56,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
         outline: none;
         border: none;
         background-color: transparent;
+        padding: 0;
     }
 
     textarea {
