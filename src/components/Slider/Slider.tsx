@@ -40,10 +40,8 @@ export const Slider: FunctionComponent<SliderProps> = ({
   };
 
   useEffect(() => {
-    const resetTranslate = () => {
-      if (!translate) return;
-      setTranslate(0);
-    };
+    if (!translate) return;
+    const resetTranslate = () => setTranslate(0);
     window.addEventListener("resize", resetTranslate);
     return () => window.removeEventListener("resize", resetTranslate);
   }, [translate]);
