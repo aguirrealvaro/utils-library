@@ -12,13 +12,5 @@ export const Primary: ComponentStory<typeof InputField> = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
 
-  return (
-    <InputField
-      placeholder="Placeholder"
-      inputId="input-id"
-      onChange={onChange}
-      value={name}
-      helpText="Help text"
-    />
-  );
+  return <InputField placeholder="Placeholder" onChange={onChange} value={name} helpText="Help text" />;
 };

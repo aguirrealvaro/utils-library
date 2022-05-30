@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ChangeEvent, HTMLProps } from "react";
+import React, { FunctionComponent, ChangeEvent, InputHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
 
 const COLORS = {
@@ -16,18 +16,14 @@ type InputProps = {
   className?: string;
 };
 
-export const InputField: FunctionComponent<InputProps & HTMLProps<HTMLInputElement>> = ({
-  id,
+export const InputField: FunctionComponent<InputProps & InputHTMLAttributes<HTMLInputElement>> = ({
   placeholder,
-  value,
   onChange,
-  name,
-  pattern,
-  disabled = false,
-  type = "text",
   helpText,
   error,
   className,
+  disabled,
+  ...restProps
 }) => {
   const onValidChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.validity.valid) onChange?.(e);
@@ -35,20 +31,16 @@ export const InputField: FunctionComponent<InputProps & HTMLProps<HTMLInputEleme
 
   const inputProps = {
     placeholder: " ",
-    value,
     onChange: onValidChange,
-    name,
-    type,
-    pattern,
-    disabled,
     error: !!error,
+    ...restProps,
   };
 
   return (
     <div className={className}>
-      <InputContainer disabled={disabled} error={!!error}>
+      <InputContainer disabled={disabled || false} error={!!error}>
         <Input {...inputProps} />
-        <Label htmlFor={id}>{placeholder}</Label>
+        <Label>{placeholder}</Label>
       </InputContainer>
       {(helpText || error) && <Bottom error={!!error}>{error || helpText}</Bottom>}
     </div>
