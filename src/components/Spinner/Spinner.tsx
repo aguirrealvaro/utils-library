@@ -1,10 +1,12 @@
 import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
 
+type SizeType = "mini" | "default" | "large";
+
 type SpinnerProps = {
   color?: string;
   background?: string;
-  size?: number;
+  size?: SizeType;
   fullHeight?: boolean;
   className?: string;
 };
@@ -12,14 +14,16 @@ type SpinnerProps = {
 export const Spinner: FunctionComponent<SpinnerProps> = ({
   color = "black",
   background = "rgba(0, 0, 0, 0.15)",
-  size,
+  size = "default",
   fullHeight = false,
   className,
-}) => (
-  <Container fullHeight={fullHeight} className={className}>
-    <Loader color={color} background={background} size={size} />
-  </Container>
-);
+}) => {
+  return (
+    <Container fullHeight={fullHeight} className={className}>
+      <Loader color={color} background={background} size={size} />
+    </Container>
+  );
+};
 
 const Container = styled.div<{ fullHeight?: boolean }>`
   display: flex;
@@ -29,16 +33,24 @@ const Container = styled.div<{ fullHeight?: boolean }>`
   height: ${({ fullHeight }) => fullHeight && "100vh"};
 `;
 
+const sizes: Record<SizeType, number> = {
+  mini: 20,
+  default: 30,
+  large: 40,
+};
+
 const Loader = styled.div<SpinnerProps>`
   border-radius: 50%;
   animation: spin 1.5s linear infinite;
   ${({ size, color, background }) => {
-    const borderSize = size ? (size * 3.9) / 32 : 3.9;
+    const numberSize = size ? sizes[size] : 30;
+    const borderSize = (numberSize * 3.9) / 32;
+
     return css`
       border: ${borderSize}px solid ${background};
       border-top: ${borderSize}px solid ${color};
-      width: ${size || 32}px;
-      height: ${size || 32}px;
+      width: ${numberSize}px;
+      height: ${numberSize}px;
     `;
   }};
   @keyframes spin {

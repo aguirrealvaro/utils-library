@@ -8,5 +8,11 @@ export default {
 } as ComponentMeta<typeof Spinner>;
 
 export const Primary: ComponentStory<typeof Spinner> = () => {
-  return <Spinner size={30} color="blue" background="lightgrey" />;
+  return (
+    <div>
+      <Spinner size="mini" color="blue" background="lightgrey" />
+      <Spinner size="default" color="blue" background="lightgrey" />
+      <Spinner size="large" color="blue" background="lightgrey" />
+    </div>
+  );
 };
