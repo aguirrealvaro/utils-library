@@ -38,13 +38,8 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
     }
 
     button {
-        font-family: ${(props) => props.theme.fontFamily};
-        font-size: 16px;
-        background: none;
-        outline: none;
-        border: none;
+        all: unset;
         cursor: pointer;
-        padding: 0;
         &:disabled {
             cursor: not-allowed;
         }
