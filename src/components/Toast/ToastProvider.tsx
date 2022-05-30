@@ -10,11 +10,11 @@ export type ToastContextType = {
 export const ToastContext = createContext<ToastContextType>({} as ToastContextType);
 
 export const ToastProvider: FunctionComponent = ({ children }) => {
-  const timeoutRef = useRef<number>(0);
+  const toastIdRef = useRef<number>(0);
   const [toasts, setToast] = useState<ToastType[]>([]);
 
   const open = useCallback((content: string, options: ToastOptions = { permanent: false }) => {
-    setToast((toasts) => [...toasts, { id: timeoutRef.current++, content, ...options }]);
+    setToast((toasts) => [...toasts, { id: toastIdRef.current++, content, ...options }]);
   }, []);
 
   const remove = useCallback((id: number) => {
