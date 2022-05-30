@@ -27,7 +27,7 @@ export const Button: FunctionComponent<ButtonProps & ButtonHTMLAttributes<HTMLBu
 }) => {
   return (
     <CustomButton block={block} kind={kind} size={size} variant={variant} {...restProps}>
-      {isLoading ? <Spinner size={25} /> : children}
+      {isLoading ? <Spinner /> : children}
     </CustomButton>
   );
 };
@@ -38,6 +38,9 @@ const CustomButton = styled.button<{ block?: boolean; kind: KindType; size: Size
   transition: all ${ANIMATION_TIME}ms ease;
   all: unset;
   cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+  }
   ${({ kind, theme, variant }) => {
     const variantColors: Record<VariantType, string> = {
       default: "blue",

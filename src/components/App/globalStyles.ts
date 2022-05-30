@@ -32,29 +32,4 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
     img {
         max-width: 100%;
     }
-
-    a {
-        text-decoration: none;
-    }
-
-    button {
-        all: unset;
-        cursor: pointer;
-        &:disabled {
-            cursor: not-allowed;
-        }
-    }
-    
-    input, textarea {
-        font-family: ${(props) => props.theme.fontFamily};
-        font-size: 16px;
-        outline: none;
-        border: none;
-        background-color: transparent;
-        padding: 0;
-    }
-
-    textarea {
-        resize: none;
-    }
 `;
