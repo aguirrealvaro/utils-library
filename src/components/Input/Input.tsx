@@ -1,15 +1,6 @@
 import React, { FunctionComponent, ChangeEvent, InputHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
 
-const COLORS = {
-  black: "#212121",
-  white: "#ffffff",
-  blue: "#0072FF",
-  red: "#FF4658",
-  grey: "#626262",
-  lightGrey: "lightgrey",
-};
-
 type InputProps = {
   helpText?: string | JSX.Element;
   error?: string;
@@ -56,15 +47,15 @@ const InputContainer = styled.div<{
   padding: 0 1rem;
   height: 48px;
   border-radius: 4px;
-  ${({ error }) =>
+  ${({ error, theme }) =>
     error
       ? css`
-          border: 1px solid ${COLORS.red};
+          border: 1px solid ${theme.colors.red};
         `
       : css`
           border: 1px solid rgba(0, 0, 0, 0.36);
           &:focus-within {
-            border: 1px solid ${COLORS.blue};
+            border: 1px solid ${theme.colors.blue};
             border-radius: 4px;
           }
         `};
@@ -88,7 +79,7 @@ const Label = styled.label`
   background-color: white;
   transition: 0.2s;
   pointer-events: none;
-  color: ${COLORS.grey};
+  color: ${({ theme }) => theme.colors.grey};
 `;
 
 const CustomInput = styled.input<{ error: boolean }>`
@@ -103,7 +94,7 @@ const CustomInput = styled.input<{ error: boolean }>`
   &:focus + label {
     top: -0.15rem;
     left: 0.8rem;
-    color: ${({ error }) => COLORS[error ? "red" : "blue"]};
+    color: ${({ error, theme }) => theme.colors[error ? "red" : "blue"]};
     font-size: 0.73rem;
     font-weight: 500;
   }
@@ -114,7 +105,7 @@ const CustomInput = styled.input<{ error: boolean }>`
         left: 0.8rem;
         font-size: 0.73rem;
         font-weight: 500;
-        color: ${({ error }) => COLORS[error ? "red" : "blue"]};
+        color: ${({ error, theme }) => theme.colors[error ? "red" : "blue"]};
       }
     }
   }
@@ -128,5 +119,5 @@ const Bottom = styled.div<{ error: boolean }>`
   font-family: "Arial";
   font-size: 13px;
   margin: 0.5rem 1rem 0 1rem;
-  color: ${({ error }) => COLORS[error ? "red" : "grey"]};
+  color: ${({ error, theme }) => theme.colors[error ? "red" : "grey"]};
 `;
