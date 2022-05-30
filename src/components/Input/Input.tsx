@@ -16,7 +16,7 @@ type InputProps = {
   className?: string;
 };
 
-export const InputField: FunctionComponent<InputProps & InputHTMLAttributes<HTMLInputElement>> = ({
+export const Input: FunctionComponent<InputProps & InputHTMLAttributes<HTMLInputElement>> = ({
   placeholder,
   onChange,
   helpText,
@@ -39,7 +39,7 @@ export const InputField: FunctionComponent<InputProps & InputHTMLAttributes<HTML
   return (
     <div className={className}>
       <InputContainer disabled={disabled || false} error={!!error}>
-        <Input {...inputProps} />
+        <CustomInput {...inputProps} />
         <Label>{placeholder}</Label>
       </InputContainer>
       {(helpText || error) && <Bottom error={!!error}>{error || helpText}</Bottom>}
@@ -91,7 +91,7 @@ const Label = styled.label`
   color: ${COLORS.grey};
 `;
 
-const Input = styled.input<{ error: boolean }>`
+const CustomInput = styled.input<{ error: boolean }>`
   font-size: 16px;
   outline: none;
   border: none;
