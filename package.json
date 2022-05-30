@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --color --env.environment=local --env.api-host=dev",
     "build:dev": "webpack --color --env.environment=development",
     "build": "webpack --color --env.environment=production",
-    "format": "prettier --write \"**/*.+(ts|tsx|js|jsx|json)\"",
+    "format": "prettier --write .",
     "lint": "eslint src",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
