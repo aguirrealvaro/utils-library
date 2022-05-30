@@ -8,5 +8,11 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 export const Primary: ComponentStory<typeof Button> = () => {
-  return <Button /* disabled */ />;
+  return (
+    <div>
+      <Button kind="contained">Contained</Button>
+      <Button kind="outlined">Outlined</Button>
+      <Button kind="text">Outlined</Button>
+    </div>
+  );
 };
