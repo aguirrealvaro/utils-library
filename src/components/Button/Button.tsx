@@ -6,12 +6,14 @@ const ANIMATION_TIME = 300;
 
 type KindType = "contained" | "outlined" | "text";
 type SizeType = "mini" | "compact" | "default" | "large";
+type VariantType = "default" | "positive" | "negative" | "warning" | "neutral";
 
 type ButtonProps = {
   block?: boolean;
   isLoading?: boolean;
   kind?: KindType;
   size?: SizeType;
+  variant?: VariantType;
 };
 
 export const Button: FunctionComponent<ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>> = ({
@@ -20,46 +22,55 @@ export const Button: FunctionComponent<ButtonProps & ButtonHTMLAttributes<HTMLBu
   isLoading,
   kind = "contained",
   size = "default",
+  variant = "default",
   ...restProps
 }) => {
   return (
-    <CustomButton block={block || false} kind={kind} size={size} {...restProps}>
+    <CustomButton block={block} kind={kind} size={size} variant={variant} {...restProps}>
       {isLoading ? <Spinner size={25} /> : children}
     </CustomButton>
   );
 };
 
-const CustomButton = styled.button<{ block: boolean; kind: KindType; size: SizeType }>`
+const CustomButton = styled.button<{ block?: boolean; kind: KindType; size: SizeType; variant: VariantType }>`
   width: ${({ block }) => (block ? "100%" : "auto")};
   border-radius: 0.5rem;
   transition: all ${ANIMATION_TIME}ms ease;
-  ${({ kind, theme }) => {
+  ${({ kind, theme, variant }) => {
+    const variantColors: Record<VariantType, string> = {
+      default: "blue",
+      positive: "green",
+      negative: "red",
+      warning: "yellow",
+      neutral: "black",
+    };
+
     if (kind === "contained") {
       return css`
-        background-color: ${theme.colors.blue};
+        background-color: ${theme.colors[variantColors[variant]]};
         color: ${theme.colors.white};
-        border: 1px solid ${theme.colors.blue};
+        border: 1px solid ${theme.colors[variantColors[variant]]};
       `;
     }
     if (kind === "outlined") {
       return css`
         background-color: ${theme.colors.white};
-        color: ${theme.colors.blue};
-        border: 1px solid ${theme.colors.blue};
+        color: ${theme.colors[variantColors[variant]]};
+        border: 1px solid ${theme.colors[variantColors[variant]]};
         &:hover {
-          background-color: ${theme.colors.blue};
+          background-color: ${theme.colors[variantColors[variant]]};
           color: ${theme.colors.white};
         }
       `;
     }
     if (kind === "text") {
       return css`
-        color: ${theme.colors.blue};
+        color: ${theme.colors[variantColors[variant]]};
         border: 1px solid transparent;
         &:hover {
-          background-color: ${theme.colors.blue};
+          background-color: ${theme.colors[variantColors[variant]]};
           color: ${theme.colors.white};
-          border: 1px solid ${theme.colors.blue};
+          border: 1px solid ${theme.colors[variantColors[variant]]};
         }
       `;
     }
