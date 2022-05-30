@@ -36,6 +36,8 @@ const CustomButton = styled.button<{ block?: boolean; kind: KindType; size: Size
   width: ${({ block }) => (block ? "100%" : "auto")};
   border-radius: 0.5rem;
   transition: all ${ANIMATION_TIME}ms ease;
+  all: unset;
+  cursor: pointer;
   ${({ kind, theme, variant }) => {
     const variantColors: Record<VariantType, string> = {
       default: "blue",

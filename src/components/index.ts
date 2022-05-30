@@ -13,3 +13,4 @@ export { useToast, ToastProvider } from "./Toast";
 export { Toggle } from "./Toggle";
 export { Select } from "./Select";
 export { Button } from "./Button";
+export { Link } from "./Link";
