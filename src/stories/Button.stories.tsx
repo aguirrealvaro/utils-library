@@ -10,9 +10,17 @@ export default {
 export const Primary: ComponentStory<typeof Button> = () => {
   return (
     <div>
-      <Button kind="contained">Contained</Button>
-      <Button kind="outlined">Outlined</Button>
-      <Button kind="text">Outlined</Button>
+      <div>
+        <Button kind="contained">Contained</Button>
+        <Button kind="outlined">Outlined</Button>
+        <Button kind="text">Outlined</Button>
+      </div>
+      <div>
+        <Button size="mini">Mini</Button>
+        <Button size="compact">Compact</Button>
+        <Button size="default">Default</Button>
+        <Button size="large">Large</Button>
+      </div>
     </div>
   );
 };

@@ -5,11 +5,13 @@ import { Spinner } from "../Spinner";
 const ANIMATION_TIME = 300;
 
 type KindType = "contained" | "outlined" | "text";
+type SizeType = "mini" | "compact" | "default" | "large";
 
 type ButtonProps = {
   block?: boolean;
   isLoading?: boolean;
   kind?: KindType;
+  size?: SizeType;
 };
 
 export const Button: FunctionComponent<ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>> = ({
@@ -17,19 +19,18 @@ export const Button: FunctionComponent<ButtonProps & ButtonHTMLAttributes<HTMLBu
   block,
   isLoading,
   kind = "contained",
+  size = "default",
   ...restProps
 }) => {
   return (
-    <CustomButton block={block || false} kind={kind} {...restProps}>
+    <CustomButton block={block || false} kind={kind} size={size} {...restProps}>
       {isLoading ? <Spinner size={25} /> : children}
     </CustomButton>
   );
 };
 
-const CustomButton = styled.button<{ block: boolean; kind: KindType }>`
+const CustomButton = styled.button<{ block: boolean; kind: KindType; size: SizeType }>`
   width: ${({ block }) => (block ? "100%" : "auto")};
-  height: 50px;
-  padding: 0 1rem;
   border-radius: 0.5rem;
   transition: all ${ANIMATION_TIME}ms ease;
   ${({ kind, theme }) => {
@@ -60,6 +61,32 @@ const CustomButton = styled.button<{ block: boolean; kind: KindType }>`
           color: ${theme.colors.white};
           border: 1px solid ${theme.colors.blue};
         }
+      `;
+    }
+  }}
+  ${({ size }) => {
+    if (size === "mini") {
+      return css`
+        padding: 0 0.5rem;
+        height: 2rem;
+      `;
+    }
+    if (size === "compact") {
+      return css`
+        padding: 0 1rem;
+        height: 2.5rem;
+      `;
+    }
+    if (size === "default") {
+      return css`
+        padding: 0 1.5rem;
+        height: 3rem;
+      `;
+    }
+    if (size === "large") {
+      return css`
+        padding: 0 2rem;
+        height: 3.5rem;
       `;
     }
   }}
