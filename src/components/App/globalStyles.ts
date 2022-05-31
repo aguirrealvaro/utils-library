@@ -29,6 +29,11 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
         margin: 0 auto;
     }
 
+    button {
+        all: unset;
+        cursor: pointer;
+    }
+
     img {
         max-width: 100%;
     }
