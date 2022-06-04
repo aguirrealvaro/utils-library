@@ -95,26 +95,26 @@ const CustomButton = styled.button<{ block?: boolean; kind: KindType; size: Size
   ${({ size }) => {
     if (size === "mini") {
       return css`
-        padding: 0 0.5rem;
-        height: 2rem;
+        padding: 0.25rem 0.5rem;
+        font-size: 12px;
       `;
     }
     if (size === "compact") {
       return css`
-        padding: 0 1rem;
-        height: 2.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 14px;
       `;
     }
     if (size === "default") {
       return css`
-        padding: 0 1.5rem;
-        height: 3rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 17px;
       `;
     }
     if (size === "large") {
       return css`
-        padding: 0 2rem;
-        height: 3.5rem;
+        padding: 1rem 2rem;
+        font-size: 18px;
       `;
     }
   }}
