@@ -51,6 +51,7 @@ const CustomButton = styled.button<{ block?: boolean; kind: KindType; size: Size
   transition: all ${ANIMATION_TIME}ms ease;
   &:disabled {
     cursor: not-allowed;
+    opacity: 0.5;
   }
   ${({ kind, theme, variant }) => {
     const variantColors: Record<VariantType, string> = {
