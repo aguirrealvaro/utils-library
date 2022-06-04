@@ -18,6 +18,7 @@ type ButtonProps = {
 
 export const Button: FunctionComponent<ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>> = ({
   children,
+  onClick,
   block,
   isLoading,
   kind = "contained",
@@ -25,9 +26,21 @@ export const Button: FunctionComponent<ButtonProps & ButtonHTMLAttributes<HTMLBu
   variant = "default",
   ...restProps
 }) => {
+  const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (isLoading) return;
+    onClick?.(e);
+  };
+
   return (
-    <CustomButton block={block} kind={kind} size={size} variant={variant} {...restProps}>
-      {isLoading ? <Spinner /> : children}
+    <CustomButton
+      block={block}
+      kind={kind}
+      size={size}
+      variant={variant}
+      onClick={handleOnClick}
+      {...restProps}
+    >
+      {isLoading ? <Spinner size="mini" /> : children}
     </CustomButton>
   );
 };

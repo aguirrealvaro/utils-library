@@ -13,7 +13,7 @@ type SpinnerProps = {
 
 export const Spinner: FunctionComponent<SpinnerProps> = ({
   color = "black",
-  background = "rgba(0, 0, 0, 0.15)",
+  background = "rgba(255, 255, 255, 0.75)",
   size = "default",
   fullHeight = false,
   className,
