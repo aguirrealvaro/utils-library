@@ -5,6 +5,7 @@ type InputProps = {
   helpText?: string | JSX.Element;
   error?: string;
   className?: string;
+  inputId?: string;
 };
 
 export const Input: FunctionComponent<InputProps & InputHTMLAttributes<HTMLInputElement>> = ({
@@ -14,6 +15,7 @@ export const Input: FunctionComponent<InputProps & InputHTMLAttributes<HTMLInput
   error,
   className,
   disabled,
+  inputId,
   ...restProps
 }) => {
   const onValidChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,8 +32,8 @@ export const Input: FunctionComponent<InputProps & InputHTMLAttributes<HTMLInput
   return (
     <div className={className}>
       <InputContainer disabled={disabled || false} error={!!error}>
-        <CustomInput {...inputProps} />
-        <Label>{placeholder}</Label>
+        <CustomInput id={inputId} {...inputProps} />
+        <Label htmlFor={inputId}>{placeholder}</Label>
       </InputContainer>
       {(helpText || error) && <Bottom error={!!error}>{error || helpText}</Bottom>}
     </div>
