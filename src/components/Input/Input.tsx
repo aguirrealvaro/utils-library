@@ -1,8 +1,8 @@
-import React, { FunctionComponent, ChangeEvent, InputHTMLAttributes } from "react";
+import React, { FunctionComponent, ChangeEvent, InputHTMLAttributes, ReactNode } from "react";
 import styled, { css } from "styled-components";
 
 type InputProps = {
-  helpText?: string | JSX.Element;
+  helpText?: ReactNode;
   error?: string;
   className?: string;
   inputId?: string;

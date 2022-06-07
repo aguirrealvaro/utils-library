@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useEffect, useLayoutEffect, useRef, useState, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import styled, { css, keyframes } from "styled-components";
 import { useDelayUnmount, useOnClickOutside } from "@/hooks";
@@ -7,7 +7,7 @@ import { PlacementType, CoordinatesType, TriggerType } from ".";
 const ANIMATION_TIME = 200;
 
 export type DropdownProps = {
-  content: JSX.Element;
+  content: ReactNode;
   placement?: PlacementType;
   trigger?: TriggerType;
   className?: string;

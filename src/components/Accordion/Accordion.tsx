@@ -1,12 +1,12 @@
-import React, { useState, useRef, FunctionComponent } from "react";
+import React, { useState, useRef, FunctionComponent, ReactNode } from "react";
 import styled from "styled-components";
 import { Icon } from "@/components";
 
 const ANIMATION_TIME = 200;
 
 type AccordionProps = {
-  header: JSX.Element;
-  content: JSX.Element;
+  header: ReactNode;
+  content: ReactNode;
   disabled?: boolean;
   className?: string;
 };
